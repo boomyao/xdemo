@@ -431,18 +431,26 @@
     <script>
         let currentQuestionNumber = 1;
         const totalQuestions = 683;
+        let userAnswers = {};  // 存储用户答题记录
         
-        // 从本地存储加载上次的进度
+        // 从本地存储加载上次的进度和答题记录
         function loadProgress() {
             const savedProgress = localStorage.getItem('questionProgress');
             if (savedProgress) {
                 currentQuestionNumber = parseInt(savedProgress);
             }
+            
+            // 加载答题记录
+            const savedAnswers = localStorage.getItem('userAnswers');
+            if (savedAnswers) {
+                userAnswers = JSON.parse(savedAnswers);
+            }
         }
 
-        // 保存进度到本地存储
+        // 保存进度和答题记录到本地存储
         function saveProgress() {
             localStorage.setItem('questionProgress', currentQuestionNumber.toString());
+            localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
         }
 
         async function loadQuestions(questionNumber) {
@@ -512,6 +520,9 @@
                 .replace(/🔍/g, '<span class="emoji">🔍</span>')
                 .replace(/💡/g, '<span class="emoji">💡</span>');
             
+            // 获取该题的历史答题记录
+            const previousAnswer = userAnswers[question.BookTestNo];
+            
             const questionHTML = `
                 <div class="question-card" data-answer="${question.Answer}">
                     <div class="question-header">
@@ -521,27 +532,29 @@
                     <div class="question-title">${question.Title}</div>
                     <div class="options">
                         ${question.SelectedItems.map(item => `
-                            <div class="option" data-option="${item.ItemName}">
+                            <div class="option ${previousAnswer && previousAnswer.selected === item.ItemName ? (previousAnswer.isCorrect ? 'selected correct' : 'selected wrong') : ''}" data-option="${item.ItemName}">
                                 ${item.ItemName}. ${item.Content}
-                                <span class="option-result">✓</span>
+                                ${previousAnswer && (previousAnswer.selected === item.ItemName || (previousAnswer.selected !== item.ItemName && item.ItemName === question.Answer)) ? 
+                                    `<span class="option-result show">${previousAnswer.selected === item.ItemName ? (previousAnswer.isCorrect ? '✓' : '✗') : '✓'}</span>` : 
+                                    '<span class="option-result">✓</span>'}
                             </div>
                         `).join('')}
                     </div>
-                    <div class="explanation">
+                    <div class="explanation ${previousAnswer ? 'show' : ''}">
                         <div class="explanation-title">解析</div>
                         <div class="explanation-content">${formattedExplain}</div>
                     </div>
                 </div>
             `;
             
-            container.innerHTML = questionHTML; // 改为替换而不是追加
+            container.innerHTML = questionHTML;
             
             // 添加选项点击事件
             const questionCard = container.lastElementChild;
             const correctAnswer = question.Answer;
             const options = questionCard.querySelectorAll('.option');
             const explanation = questionCard.querySelector('.explanation');
-            let hasAnswered = false;
+            let hasAnswered = previousAnswer ? true : false;
 
             options.forEach(option => {
                 option.addEventListener('click', () => {
@@ -549,6 +562,15 @@
                     
                     hasAnswered = true;
                     const selectedOption = option.dataset.option;
+                    const isCorrect = selectedOption === correctAnswer;
+                    
+                    // 保存答题记录
+                    userAnswers[question.BookTestNo] = {
+                        selected: selectedOption,
+                        isCorrect: isCorrect,
+                        timestamp: new Date().toISOString()
+                    };
+                    saveProgress();
                     
                     // 移除之前的选择
                     options.forEach(opt => {
@@ -558,7 +580,7 @@
                     
                     // 显示当前选择的结果
                     option.classList.add('selected');
-                    if (selectedOption === correctAnswer) {
+                    if (isCorrect) {
                         option.classList.add('correct');
                         option.querySelector('.option-result').textContent = '✓';
                     } else {
