@@ -1,0 +1,45 @@
+{
+  "AllTestID": 80830086,
+  "ATestID": 80830086,
+  "Difficulty": "",
+  "BookTestNo": "104",
+  "Title": "兴中会的誓词不包括",
+  "Explain": "今天来聊聊孙中山创立的第一个革命组织——兴中会！这可是近代中国第一个资产阶级革命组织呢～\n\n兴中会的誓词超燃：\n- 驱除鞑虏：要赶走清朝统治者🔥\n- 恢复中国：重建属于中国人的国家\n- 创立合众政府：建立民主共和政体✨\n\n这些誓词的意义：\n- 明确提出革命目标\n- 体现民主共和思想\n- 展现革命决心💪\n\n有趣的是，'恢复中华'虽然听起来很像，但其实不是兴中会的誓词哦！这就像是在选购限定版手机，要注意看清具体型号，不要选错了呢～\n\n小知识：兴中会成立于1894年，在檀香山（现在的夏威夷）。选择在海外成立，是因为那时国内革命形势太严峻啦！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "驱除鞑虏"
+    },
+    {
+      "ItemName": "B",
+      "Content": "<{p}>恢复中国<{/p}>"
+    },
+    {
+      "ItemName": "C",
+      "Content": "创立合众政府"
+    },
+    {
+      "ItemName": "D",
+      "Content": "恢复中华"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "TestID": 80830086,
+  "testNO": 104,
+  "videoInfo": {},
+  "hasVideo": 0,
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "HistoricalDate": {
+    "year": 1894,
+    "month": null,
+    "day": null
+  }
+}

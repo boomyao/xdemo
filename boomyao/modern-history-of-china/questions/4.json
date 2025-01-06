@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80829986,
+  "ATestID": 80829986,
+  "Difficulty": "",
+  "BookTestNo": "4",
+  "Title": "中国封建社会产生过诸多‘盛世’，出现在清代的是",
+  "Explain": "✨中国历史上的黄金时代大盘点\\n\\n各朝代都有自己的高光时刻，但要说最后一个封建王朝的巅峰，那就是康雍乾三代同堂的盛世啦！🌟\\n\\n📝知识小贴士：\\n- 康熙（1662-1722）：励精图治，平定三藩\\n- 雍正（1723-1735）：雷厉风行，推行摊丁入亩\\n- 乾隆（1736-1795）：统一全国，完成《四库全书》\\n\\n🎨有趣的是：\\n这就像是一个家族企业的三代接班人：爷爷打下基业，爸爸强化管理，儿子享受成果～但谁能想到，这个‘最后的辉煌’之后，清朝就开始走下坡路了呢？😮\\n\\n#历史冷知识 #清朝历史 #高考备考",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "文景之治"
+    },
+    {
+      "ItemName": "B",
+      "Content": " 贞观之治"
+    },
+    {
+      "ItemName": "C",
+      "Content": "开元之治"
+    },
+    {
+      "ItemName": "D",
+      "Content": " 康雍乾盛世"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80829986,
+  "HistoricalDate": {
+    "year": 1644,
+    "month": null,
+    "day": null
+  }
+}

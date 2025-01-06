@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830098,
+  "ATestID": 80830098,
+  "Difficulty": "",
+  "BookTestNo": "116",
+  "Title": "袁世凯窃夺辛亥革命成果后,于1914年5月炮制了",
+  "Explain": "姐妹们，今天来讲一个'政治大戏'！1914年，袁世凯这个'戏精'上演了一出夺权的好戏～\n\n事情是这样的：\n- 袁世凯废除了《临时约法》\n- 炮制了《中华民国约法》\n- 把自己变成了独裁者👑\n- 为后来称帝铺路\n\n这部约法有多'任性'？\n- 总统权力超级大\n- 国会权力被削弱\n- 民主共和成空话\n- 就是个独裁工具📜\n\n有趣的是，这就像是一个'换装游戏'：\n- 把民主共和的'皮'\n- 套在专制独裁的'芯'上\n- 最后露出了称帝的野心\n\n小贴士：这段历史告诉我们，有些人表面上说着民主，背地里却在搞独裁，这种'双面人'在历史上屡见不鲜呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《戒严法》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《中华民国约法》"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《钦定宪法大纲》"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《暂行新刑律》"
+    }
+  ],
+  "Answer": "B",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830098,
+  "HistoricalDate": {
+    "year": 1914,
+    "month": 5,
+    "day": null
+  }
+}

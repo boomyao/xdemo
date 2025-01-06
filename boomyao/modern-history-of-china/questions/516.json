@@ -1,0 +1,42 @@
+{
+  "AllTestID": 81579590,
+  "ATestID": 81579590,
+  "Difficulty": "",
+  "BookTestNo": "516",
+  "Title": "2005年3月,第十届全国人民代表大会第三次会议通过的法律是",
+  "Explain": "重要时刻！2005年3月14日，全国人大通过了《反分裂国家法》，这可是一部具有重大历史意义的法律呢～\n\n这部法律的亮点超多：\n- 明确反对和遏制'台独'分裂势力🚫\n- 维护国家主权和领土完整\n- 促进祖国和平统一🕊️\n- 维护台海地区和平稳定\n\n它就像是一把保护伞：\n- 为两岸关系发展提供法律保障\n- 展现了和平统一的诚意\n- 划出了不可逾越的红线\n- 体现了维护国家统一的决心💪\n\n有趣的是，这部法律不仅是一个法律文件，更是一份庄严承诺，向全世界展示了中国维护国家统一的坚定立场～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《香港特别行政区基本法》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《国家安全法》"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《澳门特别行政区基本法》"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《反分裂国家法》"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 81579590,
+  "HistoricalDate": {
+    "year": 2005,
+    "month": 3,
+    "day": 14
+  }
+}

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国近代史题库</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f5f6fa;
+            --card-background: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 12px;
+            --spacing: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: var(--spacing);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .question-date {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+        }
+
+        .option.selected {
+            border-color: var(--secondary-color);
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option-result {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-result.show {
+            opacity: 1;
+        }
+
+        .correct .option-result {
+            color: #28a745;
+        }
+
+        .wrong .option-result {
+            color: #dc3545;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            white-space: pre-line;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .explanation.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .explanation-content {
+            line-height: 1.8;
+        }
+
+        .explanation-content .emoji {
+            display: inline-block;
+            margin: 0 2px;
+            vertical-align: middle;
+        }
+
+        .explanation-content br {
+            display: block;
+            margin: 8px 0;
+            content: "";
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --spacing: 12px;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+                margin: 0;
+                width: 100%;
+            }
+            
+            header {
+                padding: 1.5rem 0;
+                margin-bottom: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-card {
+                padding: 1.2rem;
+                margin-bottom: 1rem;
+                border-radius: 8px;
+            }
+
+            .question-title {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .question-number {
+                font-size: 1rem;
+            }
+
+            .options {
+                gap: 0.8rem;
+            }
+
+            .option {
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
+
+            .option-result {
+                right: 0.8rem;
+            }
+
+            .explanation {
+                padding: 1rem;
+                margin-top: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-buttons {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: 0;
+                padding: 0.8rem;
+                border-radius: 0;
+                background: rgba(255, 255, 255, 0.95);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                gap: 0.8rem;
+            }
+
+            .nav-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-width: 80px;
+                flex: 0 1 auto;
+            }
+
+            .question-counter {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                flex: 0 1 auto;
+                white-space: nowrap;
+            }
+
+            /* 为底部导航栏添加内边距 */
+            body {
+                padding-bottom: calc(var(--spacing) * 4);
+            }
+        }
+
+        /* 针对超小屏幕的优化 */
+        @media (max-width: 360px) {
+            .nav-buttons {
+                gap: 0.4rem;
+                padding: 0.6rem;
+            }
+
+            .nav-button {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+                min-width: 70px;
+            }
+
+            .question-counter {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+                min-width: auto;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 针对横屏模式的优化 */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .nav-buttons {
+                position: sticky;
+            }
+
+            body {
+                padding-bottom: var(--spacing);
+            }
+
+            .question-card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* 优化深色模式 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #1a1a1a;
+                --card-background: #2d2d2d;
+                --text-color: #e0e0e0;
+            }
+
+            .option {
+                background: #363636;
+            }
+
+            .option:hover {
+                background: #404040;
+            }
+
+            .option.correct {
+                background: #1e4620;
+                border-color: #28a745;
+            }
+
+            .option.wrong {
+                background: #461e1e;
+                border-color: #dc3545;
+            }
+
+            .explanation {
+                background: #363636;
+            }
+
+            .nav-buttons {
+                background: rgba(45, 45, 45, 0.95);
+            }
+
+            .question-counter {
+                background: #363636;
+                color: var(--text-color);
+            }
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            position: sticky;
+            bottom: 20px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .question-counter {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>中国近代史题库</h1>
+            <p>探索历史，学习智慧</p>
+        </header>
+        <div id="questions-container">
+            <!-- 问题将通过 JavaScript 动态加载 -->
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" id="prevButton" disabled>
+                ← 上一题
+            </button>
+            <button class="nav-button" id="nextButton">
+                下一题 →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionNumber = 1;
+        const totalQuestions = 683;
+        
+        // 从本地存储加载上次的进度
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('questionProgress');
+            if (savedProgress) {
+                currentQuestionNumber = parseInt(savedProgress);
+            }
+        }
+
+        // 保存进度到本地存储
+        function saveProgress() {
+            localStorage.setItem('questionProgress', currentQuestionNumber.toString());
+        }
+
+        async function loadQuestions(questionNumber) {
+            try {
+                const response = await fetch(`questions/${questionNumber}.json`);
+                const question = await response.json();
+                displayQuestion(question);
+                updateNavigationState();
+                saveProgress(); // 保存当前进度
+                // 平滑滚动到顶部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                console.error('Error loading questions:', error);
+            }
+        }
+
+        function updateNavigationState() {
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            
+            prevButton.disabled = currentQuestionNumber <= 1;
+            nextButton.disabled = currentQuestionNumber >= totalQuestions;
+        }
+
+        // 初始化页面
+        window.addEventListener('load', () => {
+            loadProgress(); // 加载上次的进度
+            loadQuestions(currentQuestionNumber);
+        });
+
+        // 更新导航按钮事件监听
+        document.getElementById('prevButton').addEventListener('click', () => {
+            if (currentQuestionNumber > 1) {
+                currentQuestionNumber--;
+                loadQuestions(currentQuestionNumber);
+            }
+        });
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            if (currentQuestionNumber < totalQuestions) {
+                currentQuestionNumber++;
+                loadQuestions(currentQuestionNumber);
+            }
+        });
+
+        // 添加键盘快捷键
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft' && currentQuestionNumber > 1) {
+                currentQuestionNumber--;
+                loadQuestions(currentQuestionNumber);
+            } else if (event.key === 'ArrowRight' && currentQuestionNumber < totalQuestions) {
+                currentQuestionNumber++;
+                loadQuestions(currentQuestionNumber);
+            }
+        });
+
+        function displayQuestion(question) {
+            const container = document.getElementById('questions-container');
+            const date = question.HistoricalDate.year ? `相关年份：${question.HistoricalDate.year}年` : '';
+            
+            const formattedExplain = question.Explain
+                .replace(/\\n/g, '<br>')
+                .replace(/📚/g, '<span class="emoji">📚</span>')
+                .replace(/🔍/g, '<span class="emoji">🔍</span>')
+                .replace(/💡/g, '<span class="emoji">💡</span>');
+            
+            const questionHTML = `
+                <div class="question-card" data-answer="${question.Answer}">
+                    <div class="question-header">
+                        <span class="question-number">题目 ${question.BookTestNo}</span>
+                        <span class="question-date">${date}</span>
+                    </div>
+                    <div class="question-title">${question.Title}</div>
+                    <div class="options">
+                        ${question.SelectedItems.map(item => `
+                            <div class="option" data-option="${item.ItemName}">
+                                ${item.ItemName}. ${item.Content}
+                                <span class="option-result">✓</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="explanation">
+                        <div class="explanation-title">解析</div>
+                        <div class="explanation-content">${formattedExplain}</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = questionHTML; // 改为替换而不是追加
+            
+            // 添加选项点击事件
+            const questionCard = container.lastElementChild;
+            const correctAnswer = question.Answer;
+            const options = questionCard.querySelectorAll('.option');
+            const explanation = questionCard.querySelector('.explanation');
+            let hasAnswered = false;
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    if (hasAnswered) return;
+                    
+                    hasAnswered = true;
+                    const selectedOption = option.dataset.option;
+                    
+                    // 移除之前的选择
+                    options.forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'wrong');
+                        opt.querySelector('.option-result').classList.remove('show');
+                    });
+                    
+                    // 显示当前选择的结果
+                    option.classList.add('selected');
+                    if (selectedOption === correctAnswer) {
+                        option.classList.add('correct');
+                        option.querySelector('.option-result').textContent = '✓';
+                    } else {
+                        option.classList.add('wrong');
+                        option.querySelector('.option-result').textContent = '✗';
+                        // 显示正确答案
+                        options.forEach(opt => {
+                            if (opt.dataset.option === correctAnswer) {
+                                opt.classList.add('correct');
+                                opt.querySelector('.option-result').textContent = '✓';
+                                opt.querySelector('.option-result').classList.add('show');
+                            }
+                        });
+                    }
+                    option.querySelector('.option-result').classList.add('show');
+                    
+                    // 显示解析
+                    setTimeout(() => {
+                        explanation.classList.add('show');
+                    }, 500);
+                });
+            });
+        }
+    </script>
+</body>
+</html> 

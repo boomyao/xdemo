@@ -1,0 +1,42 @@
+{
+  "AllTestID": 81579466,
+  "ATestID": 81579466,
+  "Difficulty": "",
+  "BookTestNo": "392",
+  "Title": "1957年整风运动反对的是",
+  "Explain": "今天来聊聊1957年整风运动中的重点内容！这次运动主要是为了解决三个'拦路虎'～\n\n这三个问题分别是：\n- 主观主义：就是不从实际出发，想当然🤔\n- 官僚主义：脱离群众，高高在上的工作作风🏰\n- 宗派主义：搞小圈子，不顾大局的不良倾向🤝\n\n为什么要反对这些问题呢？\n- 主观主义会让决策脱离实际\n- 官僚主义会伤害群众感情\n- 宗派主义会影响团结统一\n\n有趣的是，这三个问题就像是工作中的'三大毒瘤'，必须及时'治疗'，才能保持党和政府的健康发展～\n\n小贴士：这些问题虽然是60多年前提出的，但到今天依然值得我们警惕和注意呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "教条主义.主观主义、宗派主义"
+    },
+    {
+      "ItemName": "B",
+      "Content": "主观主义.宗派主义、官僚主义"
+    },
+    {
+      "ItemName": "C",
+      "Content": "教条主义宗派主义.官僚主义"
+    },
+    {
+      "ItemName": "D",
+      "Content": "主观主义.官僚主义、教条主义"
+    }
+  ],
+  "Answer": "B",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 81579466,
+  "HistoricalDate": {
+    "year": 1957,
+    "month": null,
+    "day": null
+  }
+}

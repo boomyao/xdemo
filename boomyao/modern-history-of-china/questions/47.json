@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830029,
+  "ATestID": 80830029,
+  "Difficulty": "",
+  "BookTestNo": "47",
+  "Title": "下列属于严复翻译的著作是",
+  "Explain": "今天来认识一位近代中国的'翻译大神'！严复可是把西方最重要的思想著作带到中国的第一人呢～\n\n严复翻译了哪些重要著作？\n- 《天演论》：进化论思想启蒙🌱\n- 《群学肄言》：社会学著作\n- 《法意》：法学著作\n- 《群己权界论》：自由主义经典✨\n\n他的翻译有什么特点？\n- 创立'信达雅'翻译标准\n- 用优美的文言文翻译\n- 创造了大量新词汇\n- 影响了几代知识分子📚\n\n有趣的是，严复的翻译就像是一座桥梁：\n- 连接中西方思想\n- 引进先进理念\n- 开启民智启蒙\n- 被誉为'思想界的播种者'🌟\n\n小知识：严复翻译《天演论》用了整整两年时间，为了让深奥的西方思想为中国人所理解，他可是绞尽了脑汁呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《新学伪经考》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《变法通议》"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《天演论》"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《人类公理》"
+    }
+  ],
+  "Answer": "C",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830029,
+  "HistoricalDate": {
+    "year": 1895,
+    "month": null,
+    "day": null
+  }
+}

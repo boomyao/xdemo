@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830076,
+  "ATestID": 80830076,
+  "Difficulty": "",
+  "BookTestNo": "94",
+  "Title": "19世纪90年代,梁启超宣传变法维新主张的著作是",
+  "Explain": "今天来认识一位清末的'思想网红'！梁启超可是当时最会写文章的'大V'，他的《变法通义》简直就是晚清版的'爆款文章'～\n\n这本书有多厉害？\n- 系统阐述变法维新思想📚\n- 批评顽固守旧派的错误观点\n- 呼吁全面学习西方的先进经验\n- 影响了一大批知识分子✨\n\n梁启超的文风超有特色：\n- 文笔优美，朗朗上口\n- 论证严密，说理透彻\n- 观点新颖，敢于创新\n- 被称为'文界革命家'🌟\n\n有趣的是，梁启超写这本书时才26岁！这就像现在的年轻人写了一篇刷爆全网的文章，而且还影响了整个时代的思潮～\n\n小知识：梁启超不仅是维新派大将，还开创了新型文体，被称为'新文体的开山鼻祖'呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《新学伪经考》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《仁学》"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《人类公理》"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《变法通义》"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830076,
+  "HistoricalDate": {
+    "year": 1895,
+    "month": null,
+    "day": null
+  }
+}

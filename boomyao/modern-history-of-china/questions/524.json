@@ -1,0 +1,42 @@
+{
+  "AllTestID": 81579598,
+  "ATestID": 81579598,
+  "Difficulty": "",
+  "BookTestNo": "524",
+  "Title": "19世纪90年代,梁启超宣传变法维新主张的著作是",
+  "Explain": "今天来聊聊一位近代史上的'笔力担当'～梁启超可是清末维新变法运动中的超级网红呢！\n\n在19世纪90年代，他写下了《变法通义》这本重磅著作：\n- 系统阐述变法维新思想📚\n- 抨击顽固守旧派的错误观点🔍\n- 呼吁全面学习西方，改革制度✨\n- 影响了无数知识分子的思想觉醒💡\n\n有趣的是，梁启超的文笔超级好，被称为'文界革命家'。他的文章既有学术深度，又能让普通人看得懂，简直就是近代史上的'科普大V'！\n\n《变法通义》不仅是一本书，更是一声呐喊，呼唤着中国在新时代的觉醒与变革～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《新学伪经考》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《仁学》立共员人中人"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《人类公理》盐"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《变法通义》人同全一"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 81579598,
+  "HistoricalDate": {
+    "year": 1895,
+    "month": null,
+    "day": null
+  }
+}

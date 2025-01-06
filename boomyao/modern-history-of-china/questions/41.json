@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830023,
+  "ATestID": 80830023,
+  "Difficulty": "",
+  "BookTestNo": "41",
+  "Title": "粉碎西方列强瓜分中国图谋的事件是",
+  "Explain": "今天给大家分享一个超燃的历史时刻！义和团运动可是近代史上一次超大规模的反帝爱国运动呢～\n\n1900年的夏天，八国联军气势汹汹地入侵中国，他们的野心昭然若揭：就是要瓜分我们的国家！但是...他们太小看中国人民的力量啦！\n\n义和团运动爆发后：\n- 数十万群众自发参与⚔️\n- 提出'扶清灭洋'的口号\n- 沉重打击了帝国主义势力\n- 挫败了列强瓜分中国的阴谋\n\n虽然这场运动最后失败了，但它展现了中国人民不屈不挠的爱国精神，让列强明白：中国，不是任人宰割的羔羊！\n\n小知识：义和团运动虽然有一些局限性（比如带有封建迷信色彩），但它的反帝爱国性质是毋庸置疑的～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "三国干涉还辽"
+    },
+    {
+      "ItemName": "B",
+      "Content": "戊戌变法"
+    },
+    {
+      "ItemName": "C",
+      "Content": "义和团运动"
+    },
+    {
+      "ItemName": "D",
+      "Content": "辛亥革命"
+    }
+  ],
+  "Answer": "C",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830023,
+  "HistoricalDate": {
+    "year": 1900,
+    "month": null,
+    "day": null
+  }
+}

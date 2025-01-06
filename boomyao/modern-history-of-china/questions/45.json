@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830027,
+  "ATestID": 80830027,
+  "Difficulty": "",
+  "BookTestNo": "45",
+  "Title": "1895年，严复在《救亡决论》一文中响亮地喊出的口号是",
+  "Explain": "今天来聊聊一篇振聋发聩的文章！1895年，严复在《救亡决论》中发出的呐喊，可是惊醒了无数国人呢～\n\n这篇文章写于什么背景？\n- 甲午战争惨败之后📜\n- 中国面临亡国危险\n- 民族危机空前严重\n- 救亡图存成为时代主题🔔\n\n严复提出了什么？\n- 响亮喊出'救亡'口号\n- 分析中国积贫积弱原因\n- 提出全面变革主张\n- 呼吁国人奋起自救✨\n\n有趣的是，这篇文章就像是一记惊雷：\n- 震醒了沉睡的国人\n- 指明了救国方向\n- 成为维新变法的理论准备\n- 被称为'救亡启蒙的先声'📢\n\n小知识：严复当时是北洋水师学堂的教员，他亲眼目睹了甲午战争的惨败，这让他对国家的前途充满忧虑，所以写下了这篇充满忧患意识的文章！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "“振兴中华”"
+    },
+    {
+      "ItemName": "B",
+      "Content": "“物竞天择”"
+    },
+    {
+      "ItemName": "C",
+      "Content": "“适者生存”"
+    },
+    {
+      "ItemName": "D",
+      "Content": "“救亡”"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830027,
+  "HistoricalDate": {
+    "year": 1895,
+    "month": null,
+    "day": null
+  }
+}

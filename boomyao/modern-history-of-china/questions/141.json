@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830123,
+  "ATestID": 80830123,
+  "Difficulty": "",
+  "BookTestNo": "141",
+  "Title": "1920年8月,在上海出版的《共产党宣言》第一个中文全译本的译者是",
+  "Explain": "划重点！今天要介绍的是中国共产党的'入门教材'第一译者～陈望道老师可是位了不起的'翻译达人'！\n\n这个翻译有多重要？\n- 是《共产党宣言》第一个中文全译本📚\n- 为中国传播马克思主义立下大功\n- 影响了无数革命青年\n- 成为党的重要理论读物✨\n\n有趣的小故事：\n- 陈望道翻译时太投入了\n- 吃粽子蘸墨汁都没发现\n- 被后人称为'真理的味道是甜的'🍡\n\n这本译作的影响有多大？\n- 毛泽东读了三遍\n- 成为早期党员必读书\n- 帮助很多人认识了马克思主义\n- 被誉为'东方红的曙光'🌅\n\n小知识：陈望道不仅是翻译家，还是著名的语言学家和教育家，为中国的文化教育事业做出了重要贡献呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "李大钊"
+    },
+    {
+      "ItemName": "B",
+      "Content": "陈望道"
+    },
+    {
+      "ItemName": "C",
+      "Content": "陈独秀"
+    },
+    {
+      "ItemName": "D",
+      "Content": "蔡和森"
+    }
+  ],
+  "Answer": "B",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830123,
+  "HistoricalDate": {
+    "year": 1920,
+    "month": 8,
+    "day": null
+  }
+}

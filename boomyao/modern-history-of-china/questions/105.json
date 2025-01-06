@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830087,
+  "ATestID": 80830087,
+  "Difficulty": "",
+  "BookTestNo": "105",
+  "Title": "在宣传民主革命思想的过程中,著名的资产阶级革命派知识分子不包括",
+  "Explain": "今天来认识一下清末那些超燃的'思想斗士'！他们可是近代中国革命的启蒙者和先驱呢～\n\n革命派三大将：\n- 章炳麟：笔名太炎，国学大师，写下《驳康有为论革命书》怼康有为🔥\n- 邹容：24岁就写出《革命军》，被誉为'革命的青年先锋'⚡️\n- 陈天华：写下《警世钟》《猛回头》，最后为革命献出生命🌟\n\n这三位革命派大佬：\n- 都是超级有才华的文化人\n- 用笔杆子唤醒民众\n- 为革命事业奋斗终身\n\n小知识：康有为虽然也是大名人，但他是改良派的代表，主张保皇立宪，和革命派的主张完全不同，就像是两个'阵营'的选手呢！\n\n这些革命先驱就像是黑暗中的火炬，照亮了中国革命的道路～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "章炳麟"
+    },
+    {
+      "ItemName": "B",
+      "Content": "邹容"
+    },
+    {
+      "ItemName": "C",
+      "Content": "陈天华"
+    },
+    {
+      "ItemName": "D",
+      "Content": "康有为"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830087,
+  "HistoricalDate": {
+    "year": null,
+    "month": null,
+    "day": null
+  }
+}

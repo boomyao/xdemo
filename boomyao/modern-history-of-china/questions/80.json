@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830062,
+  "ATestID": 80830062,
+  "Difficulty": "",
+  "BookTestNo": "80",
+  "Title": "严复将英国人赫胥黎的《进化与伦理》的前两篇翻译为",
+  "Explain": "今天来聊聊一本改变近代中国思想界的神级译作！严复把赫胥黎的《进化与伦理》翻译成了《天演论》，这可是一个超厉害的思想启蒙之作～\n\n这本书讲了什么？\n- 介绍达尔文进化论🌱\n- 探讨社会发展规律\n- 阐述物竞天择思想\n- 分析适者生存道理✨\n\n严复的翻译有多牛？\n- 不是简单翻译，而是加入自己见解\n- 创造了很多新词汇\n- 用优美文言文表达\n- 让深奥理论变通俗易懂📚\n\n有趣的是，这本书就像是一把思想的'钥匙'：\n- 打开了国人的眼界\n- 唤醒了变革意识\n- 推动了社会进步\n- 被誉为'开智之作'🔑\n\n小知识：严复翻译时加了很多按语（就是自己的注解），这些注解后来被认为比原著还精彩呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《天演论》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《穆勒名学》"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《原富》"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《法意》"
+    }
+  ],
+  "Answer": "A",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830062,
+  "HistoricalDate": {
+    "year": 1903,
+    "month": null,
+    "day": null
+  }
+}

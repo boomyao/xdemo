@@ -1,0 +1,43 @@
+{
+  "customTestID": "292134084097125709",
+  "AllTestID": 303808280,
+  "ATestID": 303808280,
+  "Difficulty": "easy",
+  "BookTestNo": "25",
+  "Title": "关于我国综合国力和国际竞争力地位的表述不正确的一项是      。",
+  "Explain": "今天来聊聊中国在世界舞台上的'成绩单'！这些年我们的发展真是太厉害了～\n\n中国的'世界第一'：\n- 制造业规模第一🏭\n- 货物贸易总额第一\n- 外汇储备第一\n- 多项经济指标世界领先✨\n\n中国的'世界第二'：\n- GDP总量世界第二（仅次于美国）💰\n- 服务贸易规模世界第二\n- 对外投资规模世界第二\n- 创新能力不断提升🚀\n\n有趣的是，这就像是一个'成长日记'：\n- 从'追赶者'变成'并跑者'\n- 有些领域已经是'领跑者'\n- 正在向创新型国家迈进\n- 但还不是第一大科技创新国哦！\n\n小知识：中国从2010年开始就成为世界第二大经济体了，这个成就来之不易，是几代人努力的结果呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "世界第一大科技创新国"
+    },
+    {
+      "ItemName": "B",
+      "Content": "世界第二大经济体"
+    },
+    {
+      "ItemName": "C",
+      "Content": "世界第一工业国"
+    },
+    {
+      "ItemName": "D",
+      "Content": "世界第一大货物贸易国"
+    }
+  ],
+  "Answer": "A",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 303808280,
+  "HistoricalDate": {
+    "year": 2010,
+    "month": null,
+    "day": null
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830110,
+  "ATestID": 80830110,
+  "Difficulty": "",
+  "BookTestNo": "128",
+  "Title": "20世纪初,在资产阶级民主革命思想传播中发表《驳康有为论革命书》的是",
+  "Explain": "今天来聊聊一场超级精彩的'笔战'！章炳麟（太炎）可是清末民初的'笔战达人'，他写的《驳康有为论革命书》简直就是一场思想界的'rap battle'～\n\n这篇文章有多厉害？\n- 全方位批驳康有为的保皇思想🎯\n- 系统阐述革命派的主张\n- 论证革命的必要性和正当性\n- 引经据典，文采飞扬✨\n\n章太炎的战斗力有多强？\n- 国学功底深厚\n- 论证严密有力\n- 文笔犀利精辟\n- 被誉为'革命派的理论家'📚\n\n有趣的是，这场'笔战'就像是古代版的'网络论战'，只不过用的是文言文，打的是革命与改良的擂台！\n\n小知识：章太炎不仅是革命家，还是国学大师，他的很多思想至今仍有重要影响呢～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "孙中山"
+    },
+    {
+      "ItemName": "B",
+      "Content": "邹容"
+    },
+    {
+      "ItemName": "C",
+      "Content": "章炳麟"
+    },
+    {
+      "ItemName": "D",
+      "Content": "陈天华"
+    }
+  ],
+  "Answer": "C",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830110,
+  "HistoricalDate": {
+    "year": 1903,
+    "month": null,
+    "day": null
+  }
+}

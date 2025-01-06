@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830003,
+  "ATestID": 80830003,
+  "Difficulty": "",
+  "BookTestNo": "21",
+  "Title": "制造旅顺大屠杀惨案的是",
+  "Explain": "今天来说一段沉痛的历史！1894年，日本军队在旅顺制造了惨绝人寰的大屠杀，这是近代中国人民深重的伤痛～\n\n这场屠杀有多惨烈？\n- 持续4天的无差别杀戮😢\n- 2万多平民惨遭杀害\n- 无辜百姓惨遭屠戮\n- 成为近代史上的血泪教训\n\n日军的暴行：\n- 见人就杀，不分老幼\n- 烧杀抢掠，无恶不作\n- 制造了骇人听闻的惨案\n- 暴露了侵略者的野蛮本质💔\n\n这段历史告诉我们：\n- 落后就要挨打的深刻教训\n- 国家必须强大才有尊严\n- 和平来之不易要珍惜\n- 勿忘国耻，自强不息🌟\n\n小知识：旅顺大屠杀后来被写入《马关条约》谈判记录，成为日本侵华罪行的铁证。这段历史永远不能忘记！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": " 英国"
+    },
+    {
+      "ItemName": "B",
+      "Content": " 法国"
+    },
+    {
+      "ItemName": "C",
+      "Content": " 俄国"
+    },
+    {
+      "ItemName": "D",
+      "Content": " 日本"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830003,
+  "HistoricalDate": {
+    "year": 1894,
+    "month": null,
+    "day": null
+  }
+}

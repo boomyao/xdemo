@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830083,
+  "ATestID": 80830083,
+  "Difficulty": "",
+  "BookTestNo": "101",
+  "Title": "标志着中国资产阶级民主革命进入了一个新阶段的是",
+  "Explain": "重磅历史时刻！1905年，孙中山在日本东京成立中国同盟会，这可是中国革命史上的一个超级转折点～\n\n同盟会的成立有多重要？\n- 第一次统一革命力量，把革命党人都'组队'在一起了🤝\n- 提出了完整的'三民主义'革命纲领✨\n- 创办《民报》宣传革命思想📰\n- 建立了严密的革命组织网络🌐\n\n有趣的是，同盟会就像是一个'革命界的创业公司'：\n- 孙中山是'CEO'\n- 黄兴是'COO'\n- 各地都设立了'分公司'\n- 革命党人就是最棒的'员工'\n\n从此，中国革命有了统一的领导核心和行动纲领，革命的大幕正式拉开，直接为辛亥革命铺平了道路！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "兴中会的成立"
+    },
+    {
+      "ItemName": "B",
+      "Content": "广州起义"
+    },
+    {
+      "ItemName": "C",
+      "Content": "中国同盟会的成立"
+    },
+    {
+      "ItemName": "D",
+      "Content": "三民主义的提出"
+    }
+  ],
+  "Answer": "C",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830083,
+  "HistoricalDate": {
+    "year": 1905,
+    "month": null,
+    "day": null
+  }
+}

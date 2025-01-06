@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830117,
+  "ATestID": 80830117,
+  "Difficulty": "",
+  "BookTestNo": "135",
+  "Title": "新文化运动的主要内容是",
+  "Explain": "姐妹们，今天来聊聊百年前那场超燃的思想革命！新文化运动可是近代史上最炸裂的一次思想启蒙运动呢～\n\n这场运动的两大主题就是'德先生'（Democracy民主）和'赛先生'（Science科学）：\n- 民主：打倒封建专制，追求个性解放🔥\n- 科学：反对迷信愚昧，崇尚理性精神✨\n\n运动中的高光时刻：\n- 白话文取代文言文，让知识飞入寻常百姓家\n- 《新青年》杂志成为思想启蒙的'头号种草官'\n- 提倡男女平等，为女性发声\n- 批判封建礼教，解放青年思想\n\n趣味小知识：陈独秀说'德先生'和'赛先生'是他最好的朋友，这种拟人化的表达方式，是不是超有意思的？\n\n新文化运动就像一场及时雨，浇灌出了五四运动的繁花似锦～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "“自强”.“求富”"
+    },
+    {
+      "ItemName": "B",
+      "Content": "传播马克思主义"
+    },
+    {
+      "ItemName": "C",
+      "Content": "救国图存"
+    },
+    {
+      "ItemName": "D",
+      "Content": "提倡民主和科学"
+    }
+  ],
+  "Answer": "D",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830117,
+  "HistoricalDate": {
+    "year": 1915,
+    "month": null,
+    "day": null
+  }
+}

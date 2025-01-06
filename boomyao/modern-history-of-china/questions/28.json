@@ -1,0 +1,42 @@
+{
+  "AllTestID": 80830010,
+  "ATestID": 80830010,
+  "Difficulty": "",
+  "BookTestNo": "28",
+  "Title": "列强在华设立的第一家银行是",
+  "Explain": "今天来聊聊近代中国金融史上的第一家外资银行！英国东方银行可是开启了列强金融侵略的'第一枪'呢～\n\n这家银行有多早？\n- 1845年在香港成立🏦\n- 是最早进入中国的外资银行\n- 比其他列强早了好多年\n- 开创了外资银行在华发展的先河\n\n它做了什么？\n- 经营外汇兑换业务💱\n- 发行纸币\n- 参与中国对外贸易\n- 成为英国在华金融工具📊\n\n有趣的是，这家银行就像是一把'金融钥匙'：\n- 打开了中国金融市场的大门\n- 为其他外资银行探路\n- 加深了中国的半殖民地化\n- 被称为'金融侵略的先锋'💰\n\n小知识：英国东方银行后来改名为'汇丰银行'，没错，就是现在香港的那家汇丰银行的前身呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": " 英国东方银行"
+    },
+    {
+      "ItemName": "B",
+      "Content": " 英国汇丰银行"
+    },
+    {
+      "ItemName": "C",
+      "Content": " 法国东方汇理银行"
+    },
+    {
+      "ItemName": "D",
+      "Content": " 俄国俄华银行"
+    }
+  ],
+  "Answer": "A",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 80830010,
+  "HistoricalDate": {
+    "year": 1845,
+    "month": null,
+    "day": null
+  }
+}

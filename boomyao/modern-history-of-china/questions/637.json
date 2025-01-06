@@ -1,0 +1,43 @@
+{
+  "customTestID": "540330814059110915",
+  "AllTestID": 303808326,
+  "ATestID": 303808326,
+  "Difficulty": "easy",
+  "BookTestNo": "71",
+  "Title": "1987 年，中共十三大比较系统地阐述了      。",
+  "Explain": "划重点！1987年的十三大可是我们党理论创新的一个超重要时刻～\n\n十三大首次系统阐述了社会主义初级阶段理论：\n- 明确我国处于社会主义初级阶段🌱\n- 这是一个不可逾越的历史阶段\n- 至少需要上百年时间\n- 是我们制定路线方针政策的依据✨\n\n这个理论有多重要？\n- 是对中国国情的科学判断\n- 是党的基本路线的理论基础\n- 指导改革开放和现代化建设\n- 被称为'最大的国情'📚\n\n有趣的是，这就像是给我们国家做了一个'体检报告'，清楚地告诉我们：我们现在在哪里，要去哪里，怎么去！\n\n小知识：这个理论的提出，让我们党对中国的发展阶段有了更清醒的认识，避免了'左'的和'右'的错误～",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "社会主义初级阶段理论"
+    },
+    {
+      "ItemName": "B",
+      "Content": "社会主义本质理论"
+    },
+    {
+      "ItemName": "C",
+      "Content": "社会主义市场经济理论"
+    },
+    {
+      "ItemName": "D",
+      "Content": "“三个有利于”标准的理论"
+    }
+  ],
+  "Answer": "A",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 303808326,
+  "HistoricalDate": {
+    "year": 1987,
+    "month": null,
+    "day": null
+  }
+}

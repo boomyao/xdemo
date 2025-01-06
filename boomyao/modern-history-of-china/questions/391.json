@@ -1,0 +1,42 @@
+{
+  "AllTestID": 81579465,
+  "ATestID": 81579465,
+  "Difficulty": "",
+  "BookTestNo": "391",
+  "Title": "1957年整风运动的形式是",
+  "Explain": "划重点！1957年的整风运动可是一次特别的'开门纳谏'活动呢～\n\n什么是'开门整风'呢？就是：\n- 广泛听取各界意见和建议🎤\n- 欢迎党外人士提意见\n- 鼓励大家畅所欲言\n- 采用'大鸣大放'的方式\n\n运动采用了超级民主的形式：\n- 开展大规模讨论会💭\n- 张贴大字报表达意见\n- 各界人士积极参与\n- 营造民主协商氛围\n\n有趣的是，这种'开门'方式就像是给党和政府'开了个直播间'，让大家都能参与进来，提意见、谈建议，共同推动工作改进～\n\n这次运动告诉我们：解决问题的最好方式，就是开诚布公地面对它！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "闭门整风"
+    },
+    {
+      "ItemName": "B",
+      "Content": "开门整风"
+    },
+    {
+      "ItemName": "C",
+      "Content": "大鸣.大放、大辩论、大字报"
+    },
+    {
+      "ItemName": "D",
+      "Content": "批评和自我批评"
+    }
+  ],
+  "Answer": "B",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 81579465,
+  "HistoricalDate": {
+    "year": 1957,
+    "month": null,
+    "day": null
+  }
+}

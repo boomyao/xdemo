@@ -1,0 +1,42 @@
+{
+  "AllTestID": 81567663,
+  "ATestID": 81567663,
+  "Difficulty": "",
+  "BookTestNo": "317",
+  "Title": "被誉为中国人民的大宪章、起着临时宪法作用的是",
+  "Explain": "宝藏知识点来啦！《共同纲领》可是新中国的第一部具有宪法性质的文件呢～\n\n它就像是新中国的'出生证'，在1949年9月通过后，为新生的人民共和国确立了：\n- 国家制度✨\n- 经济政策💰\n- 文化教育方针📚\n- 外交政策🌏\n\n有趣的是，它虽然不是正式宪法，但在1954年《宪法》颁布前的近5年里，一直发挥着临时宪法的作用，为新中国的建设保驾护航～\n\n它的诞生，标志着中国人民真正当家做主的时代到来，所以被誉为'中国人民的大宪章'，这个称号实至名归呢！",
+  "Type": "ATEST",
+  "SubType": "单选题",
+  "SelectedItems": [
+    {
+      "ItemName": "A",
+      "Content": "《论人民民主专政》"
+    },
+    {
+      "ItemName": "B",
+      "Content": "《中国人民政治协商会议共同纲领》"
+    },
+    {
+      "ItemName": "C",
+      "Content": "《中国人民政治协商会议组织法》"
+    },
+    {
+      "ItemName": "D",
+      "Content": "《新民主主义论》"
+    }
+  ],
+  "Answer": "B",
+  "TestPoint": "",
+  "IsFav": 0,
+  "UserNoteContent": "",
+  "StyleID": 452366,
+  "From": "",
+  "ChapterID": -1,
+  "UserID": 1063943,
+  "TestID": 81567663,
+  "HistoricalDate": {
+    "year": 1949,
+    "month": 9,
+    "day": null
+  }
+}
