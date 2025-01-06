@@ -45,13 +45,12 @@
             text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
-            cursor: pointer;
             text-decoration: none;
             color: inherit;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
@@ -70,6 +69,36 @@
         .card p {
             color: #7f8c8d;
             line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
@@ -88,16 +117,24 @@
 <body>
     <h1>课程导航</h1>
     <div class="container">
-        <a href="principles_of_marxism/index.html" class="card">
+        <div class="card">
             <div class="card-icon">📚</div>
             <h2>马克思主义原理</h2>
             <p>探索马克思主义的基本原理和核心概念，深入理解其理论体系。</p>
-        </a>
-        <a href="modern-history-of-china/index.html" class="card">
+            <div class="card-buttons">
+                <a href="principles_of_marxism/index.html" class="btn btn-primary">完整答题</a>
+                <a href="principles_of_marxism/index.html#wrong" class="btn btn-secondary">错题本</a>
+            </div>
+        </div>
+        <div class="card">
             <div class="card-icon">🏛️</div>
             <h2>中国近代史</h2>
             <p>了解中国近代历史的重要事件和发展进程，探索历史的启示。</p>
-        </a>
+            <div class="card-buttons">
+                <a href="modern-history-of-china/index.html" class="btn btn-primary">完整答题</a>
+                <a href="modern-history-of-china/index.html#wrong" class="btn btn-secondary">错题本</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

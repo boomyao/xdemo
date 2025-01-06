@@ -4,611 +4,400 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>中国近代史题库</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --background-color: #f5f6fa;
-            --card-background: #ffffff;
-            --text-color: #2c3e50;
-            --border-radius: 12px;
-            --spacing: 20px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: var(--spacing);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem 0;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .question-card {
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .question-number {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-            font-weight: 500;
-        }
-
-        .question-date {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .question-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
-        }
-
-        .options {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .option {
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-        }
-
-        .option:hover {
-            background: #e9ecef;
-        }
-
-        .option.selected {
-            border-color: var(--secondary-color);
-        }
-
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-        }
-
-        .option.wrong {
-            background: #f8d7da;
-            border-color: #dc3545;
-        }
-
-        .option-result {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .option-result.show {
-            opacity: 1;
-        }
-
-        .correct .option-result {
-            color: #28a745;
-        }
-
-        .wrong .option-result {
-            color: #dc3545;
-        }
-
-        .explanation {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-            font-size: 0.95rem;
-            white-space: pre-line;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-
-        .explanation.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .explanation-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--secondary-color);
-        }
-
-        .explanation-content {
-            line-height: 1.8;
-        }
-
-        .explanation-content .emoji {
-            display: inline-block;
-            margin: 0 2px;
-            vertical-align: middle;
-        }
-
-        .explanation-content br {
-            display: block;
-            margin: 8px 0;
-            content: "";
-        }
-
-        @media (max-width: 768px) {
-            :root {
-                --spacing: 12px;
-            }
-
-            body {
-                padding: 0;
-            }
-
-            .container {
-                padding: 0 1rem;
-                margin: 0;
-                width: 100%;
-            }
-            
-            header {
-                padding: 1.5rem 0;
-                margin-bottom: 1rem;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .question-card {
-                padding: 1.2rem;
-                margin-bottom: 1rem;
-                border-radius: 8px;
-            }
-
-            .question-title {
-                font-size: 1.1rem;
-                margin-bottom: 1rem;
-            }
-
-            .question-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .question-number {
-                font-size: 1rem;
-            }
-
-            .options {
-                gap: 0.8rem;
-            }
-
-            .option {
-                padding: 0.8rem;
-                font-size: 0.95rem;
-            }
-
-            .option-result {
-                right: 0.8rem;
-            }
-
-            .explanation {
-                padding: 1rem;
-                margin-top: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .nav-buttons {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                margin: 0;
-                padding: 0.8rem;
-                border-radius: 0;
-                background: rgba(255, 255, 255, 0.95);
-                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-                gap: 0.8rem;
-            }
-
-            .nav-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                min-width: 80px;
-                flex: 0 1 auto;
-            }
-
-            .question-counter {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                flex: 0 1 auto;
-                white-space: nowrap;
-            }
-
-            /* 为底部导航栏添加内边距 */
-            body {
-                padding-bottom: calc(var(--spacing) * 4);
-            }
-        }
-
-        /* 针对超小屏幕的优化 */
-        @media (max-width: 360px) {
-            .nav-buttons {
-                gap: 0.4rem;
-                padding: 0.6rem;
-            }
-
-            .nav-button {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.85rem;
-                min-width: 70px;
-            }
-
-            .question-counter {
-                padding: 0.5rem;
-                font-size: 0.85rem;
-                min-width: auto;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* 针对横屏模式的优化 */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .nav-buttons {
-                position: sticky;
-            }
-
-            body {
-                padding-bottom: var(--spacing);
-            }
-
-            .question-card {
-                margin-bottom: 1rem;
-            }
-        }
-
-        /* 优化深色模式 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background-color: #1a1a1a;
-                --card-background: #2d2d2d;
-                --text-color: #e0e0e0;
-            }
-
-            .option {
-                background: #363636;
-            }
-
-            .option:hover {
-                background: #404040;
-            }
-
-            .option.correct {
-                background: #1e4620;
-                border-color: #28a745;
-            }
-
-            .option.wrong {
-                background: #461e1e;
-                border-color: #dc3545;
-            }
-
-            .explanation {
-                background: #363636;
-            }
-
-            .nav-buttons {
-                background: rgba(45, 45, 45, 0.95);
-            }
-
-            .question-counter {
-                background: #363636;
-                color: var(--text-color);
-            }
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            position: sticky;
-            bottom: 20px;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .nav-button {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--primary-color);
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .nav-button:hover {
-            background: #34495e;
-            transform: translateY(-2px);
-        }
-
-        .nav-button:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .question-counter {
-            padding: 0.8rem 1.5rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-        }
-    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" crossorigin></script>
+    <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js" crossorigin></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div id="app" class="container">
         <header>
-            <h1>中国近代史题库</h1>
-            <p>探索历史，学习智慧</p>
+            <a href="/boomyao" class="back-button">←</a>
+            <h1>{{ $route.path === '/wrong' ? '错题本' : '中国近代史题库' }}</h1>
         </header>
-        <div id="questions-container">
-            <!-- 问题将通过 JavaScript 动态加载 -->
-        </div>
-        <div class="nav-buttons">
-            <button class="nav-button" id="prevButton" disabled>
-                ← 上一题
-            </button>
-            <button class="nav-button" id="nextButton">
-                下一题 →
-            </button>
-        </div>
+        <router-view></router-view>
     </div>
 
     <script>
-        let currentQuestionNumber = 1;
-        const totalQuestions = 683;
-        let userAnswers = {};  // 存储用户答题记录
-        
-        // 获取基于当前页面路径的存储前缀
-        function getStoragePrefix() {
-            const path = window.location.pathname;
-            // 移除开头的斜杠和结尾的 index.html
-            const cleanPath = path.replace(/^\//, '').replace(/\/index\.html$/, '');
-            // 将路径转换为适合做键名的格式
-            return cleanPath.replace(/\//g, '_') + '_';
-        }
-        
-        // 从本地存储加载上次的进度和答题记录
-        function loadProgress() {
-            const prefix = getStoragePrefix();
-            const savedProgress = localStorage.getItem(prefix + 'questionProgress');
-            if (savedProgress) {
-                currentQuestionNumber = parseInt(savedProgress);
-            }
-            
-            // 加载答题记录
-            const savedAnswers = localStorage.getItem(prefix + 'userAnswers');
-            if (savedAnswers) {
-                userAnswers = JSON.parse(savedAnswers);
-            }
-        }
+        const { createApp, ref, computed, onMounted, watch } = Vue;
+        const { createRouter, createWebHashHistory } = VueRouter;
 
-        // 保存进度和答题记录到本地存储
-        function saveProgress() {
-            const prefix = getStoragePrefix();
-            localStorage.setItem(prefix + 'questionProgress', currentQuestionNumber.toString());
-            localStorage.setItem(prefix + 'userAnswers', JSON.stringify(userAnswers));
-        }
-
-        async function loadQuestions(questionNumber) {
-            try {
-                const response = await fetch(`questions/${questionNumber}.json`);
-                const question = await response.json();
-                displayQuestion(question);
-                updateNavigationState();
-                saveProgress(); // 保存当前进度
-                // 平滑滚动到顶部
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            } catch (error) {
-                console.error('Error loading questions:', error);
-            }
-        }
-
-        function updateNavigationState() {
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            
-            prevButton.disabled = currentQuestionNumber <= 1;
-            nextButton.disabled = currentQuestionNumber >= totalQuestions;
-        }
-
-        // 初始化页面
-        window.addEventListener('load', () => {
-            loadProgress(); // 加载上次的进度
-            loadQuestions(currentQuestionNumber);
-        });
-
-        // 更新导航按钮事件监听
-        document.getElementById('prevButton').addEventListener('click', () => {
-            if (currentQuestionNumber > 1) {
-                currentQuestionNumber--;
-                loadQuestions(currentQuestionNumber);
-            }
-        });
-
-        document.getElementById('nextButton').addEventListener('click', () => {
-            if (currentQuestionNumber < totalQuestions) {
-                currentQuestionNumber++;
-                loadQuestions(currentQuestionNumber);
-            }
-        });
-
-        // 添加键盘快捷键
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft' && currentQuestionNumber > 1) {
-                currentQuestionNumber--;
-                loadQuestions(currentQuestionNumber);
-            } else if (event.key === 'ArrowRight' && currentQuestionNumber < totalQuestions) {
-                currentQuestionNumber++;
-                loadQuestions(currentQuestionNumber);
-            }
-        });
-
-        function displayQuestion(question) {
-            const container = document.getElementById('questions-container');
-            const date = question.HistoricalDate.year ? `相关年份：${question.HistoricalDate.year}年` : '';
-            
-            const formattedExplain = question.Explain
-                .replace(/\\n/g, '<br>')
-                .replace(/📚/g, '<span class="emoji">📚</span>')
-                .replace(/🔍/g, '<span class="emoji">🔍</span>')
-                .replace(/💡/g, '<span class="emoji">💡</span>');
-            
-            // 获取该题的历史答题记录
-            const previousAnswer = userAnswers[question.BookTestNo];
-            
-            const questionHTML = `
-                <div class="question-card" data-answer="${question.Answer}">
-                    <div class="question-header">
-                        <span class="question-number">题目 ${question.BookTestNo}</span>
-                        <span class="question-date">${date}</span>
-                    </div>
-                    <div class="question-title">${question.Title}</div>
-                    <div class="options">
-                        ${question.SelectedItems.map(item => `
-                            <div class="option ${previousAnswer ? (previousAnswer.selected === item.ItemName ? (previousAnswer.isCorrect ? 'selected correct' : 'selected wrong') : (item.ItemName === question.Answer ? 'correct' : '')) : ''}" data-option="${item.ItemName}">
-                                ${item.ItemName}. ${item.Content}
-                                ${previousAnswer && (previousAnswer.selected === item.ItemName || item.ItemName === question.Answer) ? 
-                                    `<span class="option-result show">${item.ItemName === question.Answer ? '✓' : '✗'}</span>` : 
-                                    '<span class="option-result">✓</span>'}
+        // 题库组件
+        const QuestionBank = {
+            template: `
+                <div>
+                    <div v-if="currentQuestion" class="question-card">
+                        <div class="question-header">
+                            <span class="question-number">题目 {{ currentQuestionNumber }}</span>
+                            <span class="question-date" v-if="currentQuestion.HistoricalDate.year">
+                                相关年份：{{ currentQuestion.HistoricalDate.year }}年
+                            </span>
+                        </div>
+                        <div class="question-title">{{ currentQuestion.Title }}</div>
+                        <div class="options">
+                            <div v-for="item in currentQuestion.SelectedItems" 
+                                :key="item.ItemName"
+                                class="option"
+                                :class="{
+                                    'selected': !showResult && userAnswer && userAnswer.selected === item.ItemName,
+                                    'correct': (showResult || userAnswer) && item.ItemName === currentQuestion.Answer,
+                                    'wrong': (showResult || userAnswer) && userAnswer && userAnswer.selected === item.ItemName && item.ItemName !== currentQuestion.Answer
+                                }"
+                                @click="selectAnswer(item.ItemName)">
+                                {{ item.ItemName }}. {{ item.Content }}
+                                <span class="option-result" :class="{ show: (showResult || userAnswer) && (item.ItemName === currentQuestion.Answer || (userAnswer && userAnswer.selected === item.ItemName)) }">
+                                    {{ item.ItemName === currentQuestion.Answer ? '✓' : '✗' }}
+                                </span>
                             </div>
-                        `).join('')}
+                        </div>
+                        <div class="explanation" :class="{ show: showResult || userAnswer }">
+                            <div class="explanation-title">解析</div>
+                            <div class="explanation-content" v-html="formattedExplanation"></div>
+                        </div>
                     </div>
-                    <div class="explanation ${previousAnswer ? 'show' : ''}">
-                        <div class="explanation-title">解析</div>
-                        <div class="explanation-content">${formattedExplain}</div>
+                    <div class="nav-buttons">
+                        <button class="nav-button" 
+                                :disabled="currentQuestionNumber <= 1"
+                                @click="prevQuestion">
+                            ← 上一题
+                        </button>
+                        <button class="nav-button" 
+                                :disabled="currentQuestionNumber >= totalQuestions"
+                                @click="nextQuestion">
+                            下一题 →
+                        </button>
                     </div>
                 </div>
-            `;
-            
-            container.innerHTML = questionHTML;
-            
-            // 添加选项点击事件
-            const questionCard = container.lastElementChild;
-            const correctAnswer = question.Answer;
-            const options = questionCard.querySelectorAll('.option');
-            const explanation = questionCard.querySelector('.explanation');
+            `,
+            setup() {
+                const currentQuestionNumber = ref(1);
+                const totalQuestions = 683;
+                const currentQuestion = ref(null);
+                const userAnswers = ref({});
+                const showResult = ref(false);
+                const router = VueRouter.useRouter();
 
-            options.forEach(option => {
-                option.addEventListener('click', () => {
-                    const selectedOption = option.dataset.option;
-                    const isCorrect = selectedOption === correctAnswer;
+                const formattedExplanation = computed(() => {
+                    if (!currentQuestion.value) return '';
+                    return currentQuestion.value.Explain
+                        .replace(/\\n/g, '<br>')
+                        .replace(/📚/g, '<span class="emoji">📚</span>')
+                        .replace(/🔍/g, '<span class="emoji">🔍</span>')
+                        .replace(/💡/g, '<span class="emoji">💡</span>');
+                });
+
+                const userAnswer = computed(() => {
+                    return userAnswers.value[currentQuestionNumber.value];
+                });
+
+                const getStoragePrefix = () => {
+                    const path = window.location.pathname;
+                    const cleanPath = path.replace(/^\//, '').replace(/\/index\.html$/, '');
+                    return cleanPath.replace(/\//g, '_') + '_';
+                };
+
+                const loadProgress = () => {
+                    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+                    const q = parseInt(urlParams.get('q'));
+                    if (q && q > 0 && q <= totalQuestions) {
+                        currentQuestionNumber.value = q;
+                    } else {
+                        const prefix = getStoragePrefix();
+                        const savedProgress = localStorage.getItem(prefix + 'questionProgress');
+                        if (savedProgress) {
+                            currentQuestionNumber.value = parseInt(savedProgress);
+                        }
+                    }
+                };
+
+                const saveProgress = () => {
+                    const prefix = getStoragePrefix();
+                    localStorage.setItem(prefix + 'questionProgress', currentQuestionNumber.value.toString());
+                    localStorage.setItem(prefix + 'userAnswers', JSON.stringify(userAnswers.value));
+                    router.replace({ query: { q: currentQuestionNumber.value }});
+                };
+
+                const loadQuestion = async (questionNumber) => {
+                    try {
+                        const response = await fetch(`./questions/${questionNumber}.json`);
+                        currentQuestion.value = await response.json();
+                        showResult.value = false;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        saveProgress();
+                    } catch (error) {
+                        console.error('Error loading questions:', error);
+                    }
+                };
+
+                const selectAnswer = (selectedOption) => {
+                    if (showResult.value) return;
                     
-                    // 保存答题记录
-                    userAnswers[question.BookTestNo] = {
+                    const isCorrect = selectedOption === currentQuestion.value.Answer;
+                    userAnswers.value[currentQuestionNumber.value] = {
                         selected: selectedOption,
                         isCorrect: isCorrect,
                         timestamp: new Date().toISOString()
                     };
-                    saveProgress();
+                    showResult.value = true;
+
+                    // 保存答题记录
+                    const prefix = getStoragePrefix();
+                    localStorage.setItem(prefix + 'userAnswers', JSON.stringify(userAnswers.value));
+
+                    // 更新错题本
+                    const savedWrongQuestions = localStorage.getItem(prefix + 'wrongQuestions');
+                    let wrongQuestions = savedWrongQuestions ? JSON.parse(savedWrongQuestions) : [];
                     
-                    // 移除之前的选择
-                    options.forEach(opt => {
-                        opt.classList.remove('selected', 'correct', 'wrong');
-                        opt.querySelector('.option-result').classList.remove('show');
-                    });
-                    
-                    // 显示当前选择的结果
-                    option.classList.add('selected');
-                    if (isCorrect) {
-                        option.classList.add('correct');
-                        option.querySelector('.option-result').textContent = '✓';
-                    } else {
-                        option.classList.add('wrong');
-                        option.querySelector('.option-result').textContent = '✗';
-                        // 显示正确答案
-                        options.forEach(opt => {
-                            if (opt.dataset.option === correctAnswer) {
-                                opt.classList.add('correct');
-                                opt.querySelector('.option-result').textContent = '✓';
-                                opt.querySelector('.option-result').classList.add('show');
-                            }
-                        });
+                    if (!isCorrect && !wrongQuestions.includes(currentQuestionNumber.value)) {
+                        wrongQuestions.push(currentQuestionNumber.value);
+                        localStorage.setItem(prefix + 'wrongQuestions', JSON.stringify(wrongQuestions));
+                    } else if (isCorrect) {
+                        const index = wrongQuestions.indexOf(currentQuestionNumber.value);
+                        if (index > -1) {
+                            wrongQuestions.splice(index, 1);
+                            localStorage.setItem(prefix + 'wrongQuestions', JSON.stringify(wrongQuestions));
+                        }
                     }
-                    option.querySelector('.option-result').classList.add('show');
-                    
-                    // 显示解析
-                    explanation.classList.add('show');
+                };
+
+                const prevQuestion = () => {
+                    if (currentQuestionNumber.value > 1) {
+                        currentQuestionNumber.value--;
+                    }
+                };
+
+                const nextQuestion = () => {
+                    if (currentQuestionNumber.value < totalQuestions) {
+                        currentQuestionNumber.value++;
+                    }
+                };
+
+                watch(currentQuestionNumber, (newValue) => {
+                    loadQuestion(newValue);
                 });
-            });
-        }
+
+                onMounted(() => {
+                    loadProgress();
+                    loadQuestion(currentQuestionNumber.value);
+                });
+
+                return {
+                    currentQuestionNumber,
+                    totalQuestions,
+                    currentQuestion,
+                    userAnswer,
+                    showResult,
+                    formattedExplanation,
+                    selectAnswer,
+                    prevQuestion,
+                    nextQuestion
+                };
+            }
+        };
+
+        // 错题本组件
+        const WrongQuestions = {
+            template: `
+                <div>
+                    <div v-if="currentQuestion" class="question-card">
+                        <div class="question-header">
+                            <span class="question-number">错题 {{ currentIndex + 1 }}/{{ wrongQuestions.length }} (原题号: {{ currentQuestion.id }})</span>
+                            <span class="question-date" v-if="currentQuestion.HistoricalDate.year">
+                                相关年份：{{ currentQuestion.HistoricalDate.year }}年
+                            </span>
+                        </div>
+                        <div class="question-title">{{ currentQuestion.Title }}</div>
+                        <div class="options">
+                            <div v-for="item in currentQuestion.SelectedItems" 
+                                :key="item.ItemName"
+                                class="option"
+                                :class="{
+                                    'selected': !showResult && userAnswer && userAnswer.selected === item.ItemName,
+                                    'correct': (showResult || userAnswer) && item.ItemName === currentQuestion.Answer,
+                                    'wrong': (showResult || userAnswer) && userAnswer && userAnswer.selected === item.ItemName && item.ItemName !== currentQuestion.Answer
+                                }"
+                                @click="selectAnswer(item.ItemName)">
+                                {{ item.ItemName }}. {{ item.Content }}
+                                <span class="option-result" :class="{ show: (showResult || userAnswer) && (item.ItemName === currentQuestion.Answer || (userAnswer && userAnswer.selected === item.ItemName)) }">
+                                    {{ item.ItemName === currentQuestion.Answer ? '✓' : '✗' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="explanation" :class="{ show: showResult || userAnswer }">
+                            <div class="explanation-title">解析</div>
+                            <div class="explanation-content" v-html="formattedExplanation"></div>
+                        </div>
+                    </div>
+                    <div v-else-if="wrongQuestions.length === 0" style="text-align: center; padding: 2rem;">
+                        <h2>暂无错题</h2>
+                        <p style="margin-top: 1rem;">去<router-link to="/" style="color: var(--secondary-color)">题库</router-link>做题吧！</p>
+                    </div>
+                    <div class="nav-buttons" v-if="wrongQuestions.length > 0">
+                        <button class="nav-button" 
+                                :disabled="currentIndex <= 0"
+                                @click="prevQuestion">
+                            ← 上一题
+                        </button>
+                        <button class="nav-button" 
+                                :disabled="currentIndex >= wrongQuestions.length - 1"
+                                @click="nextQuestion">
+                            下一题 →
+                        </button>
+                    </div>
+                </div>
+            `,
+            setup() {
+                const currentIndex = ref(0);
+                const wrongQuestions = ref([]);
+                const currentQuestion = ref(null);
+                const userAnswers = ref({});
+                const showResult = ref(false);
+
+                const formattedExplanation = computed(() => {
+                    if (!currentQuestion.value) return '';
+                    return currentQuestion.value.Explain
+                        .replace(/\\n/g, '<br>')
+                        .replace(/📚/g, '<span class="emoji">📚</span>')
+                        .replace(/🔍/g, '<span class="emoji">🔍</span>')
+                        .replace(/💡/g, '<span class="emoji">💡</span>');
+                });
+
+                const userAnswer = computed(() => {
+                    if (!currentQuestion.value) return null;
+                    return userAnswers.value[currentQuestion.value.id];
+                });
+
+                const getStoragePrefix = () => {
+                    const path = window.location.pathname;
+                    const cleanPath = path.replace(/^\//, '').replace(/\/index\.html$/, '');
+                    return cleanPath.replace(/\//g, '_') + '_';
+                };
+
+                const loadUserAnswers = () => {
+                    const prefix = getStoragePrefix();
+                    // 直接从错题本存储中加载
+                    const savedWrongQuestions = localStorage.getItem(prefix + 'wrongQuestions');
+                    if (savedWrongQuestions) {
+                        return JSON.parse(savedWrongQuestions);
+                    }
+                    
+                    // 如果没有错题本记录，则从答题记录中初始化
+                    const savedAnswers = localStorage.getItem(prefix + 'userAnswers');
+                    if (savedAnswers) {
+                        const answers = JSON.parse(savedAnswers);
+                        const wrongQuestionIds = Object.entries(answers)
+                            .filter(([_, answer]) => !answer.isCorrect)
+                            .map(([id]) => parseInt(id));
+                        // 初始化错题本存储
+                        localStorage.setItem(prefix + 'wrongQuestions', JSON.stringify(wrongQuestionIds));
+                        return wrongQuestionIds;
+                    }
+                    return [];
+                };
+
+                const loadQuestion = async (questionId) => {
+                    try {
+                        const response = await fetch(`./questions/${questionId}.json`);
+                        const question = await response.json();
+                        question.id = questionId; // 保存原题号
+                        currentQuestion.value = question;
+                        showResult.value = false;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (error) {
+                        console.error('Error loading question:', error);
+                    }
+                };
+
+                const selectAnswer = (selectedOption) => {
+                    if (showResult.value) return;
+                    
+                    const isCorrect = selectedOption === currentQuestion.value.Answer;
+                    userAnswers.value[currentQuestion.value.id] = {
+                        selected: selectedOption,
+                        isCorrect: isCorrect,
+                        timestamp: new Date().toISOString()
+                    };
+                    showResult.value = true;
+
+                    // 保存答题记录
+                    const prefix = getStoragePrefix();
+                    localStorage.setItem(prefix + 'userAnswers', JSON.stringify(userAnswers.value));
+
+                    // 如果答错了，确保题目仍在错题列表中
+                    if (!isCorrect && !wrongQuestions.value.includes(currentQuestion.value.id)) {
+                        wrongQuestions.value.push(currentQuestion.value.id);
+                    }
+                    // 如果答对了，从错题列表中移除
+                    else if (isCorrect) {
+                        const index = wrongQuestions.value.indexOf(currentQuestion.value.id);
+                        if (index > -1) {
+                            wrongQuestions.value.splice(index, 1);
+                            // 如果当前题目是最后一个错题，返回到上一题
+                            if (wrongQuestions.value.length === 0) {
+                                currentQuestion.value = null;
+                            } else if (currentIndex.value >= wrongQuestions.value.length) {
+                                currentIndex.value = wrongQuestions.value.length - 1;
+                            }
+                        }
+                    }
+
+                    // 保存错题列表
+                    localStorage.setItem(prefix + 'wrongQuestions', JSON.stringify(wrongQuestions.value));
+                };
+
+                const prevQuestion = () => {
+                    if (currentIndex.value > 0) {
+                        currentIndex.value--;
+                    }
+                };
+
+                const nextQuestion = () => {
+                    if (currentIndex.value < wrongQuestions.value.length - 1) {
+                        currentIndex.value++;
+                    }
+                };
+
+                watch(currentIndex, (newValue) => {
+                    if (wrongQuestions.value.length > 0) {
+                        loadQuestion(wrongQuestions.value[newValue]);
+                    }
+                });
+
+                onMounted(async () => {
+                    const wrongQuestionIds = loadUserAnswers();
+                    wrongQuestions.value = wrongQuestionIds;
+                    
+                    if (wrongQuestionIds.length > 0) {
+                        await loadQuestion(wrongQuestionIds[0]);
+                    }
+                });
+
+                return {
+                    currentIndex,
+                    wrongQuestions,
+                    currentQuestion,
+                    userAnswer,
+                    showResult,
+                    formattedExplanation,
+                    selectAnswer,
+                    prevQuestion,
+                    nextQuestion
+                };
+            }
+        };
+
+        // 创建路由
+        const router = createRouter({
+            history: createWebHashHistory(),
+            routes: [
+                { path: '/', component: QuestionBank },
+                { path: '/wrong', component: WrongQuestions }
+            ]
+        });
+
+        // 创建应用
+        const app = createApp({});
+        app.use(router);
+        app.mount('#app');
     </script>
 </body>
 </html> 
