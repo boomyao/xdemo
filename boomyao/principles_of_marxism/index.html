@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国近代史题库</title>
+    <title>马克思主义基本原理题库</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -60,9 +60,6 @@
         }
 
         .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 1rem;
         }
 
@@ -70,11 +67,6 @@
             font-size: 1.2rem;
             color: var(--secondary-color);
             font-weight: 500;
-        }
-
-        .question-date {
-            font-size: 0.9rem;
-            color: #666;
         }
 
         .question-title {
@@ -214,12 +206,6 @@
                 margin-bottom: 1rem;
             }
 
-            .question-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
             .question-number {
                 font-size: 1rem;
             }
@@ -270,13 +256,11 @@
                 white-space: nowrap;
             }
 
-            /* 为底部导航栏添加内边距 */
             body {
                 padding-bottom: calc(var(--spacing) * 4);
             }
         }
 
-        /* 针对超小屏幕的优化 */
         @media (max-width: 360px) {
             .nav-buttons {
                 gap: 0.4rem;
@@ -300,7 +284,6 @@
             }
         }
 
-        /* 针对横屏模式的优化 */
         @media (max-height: 600px) and (orientation: landscape) {
             .nav-buttons {
                 position: sticky;
@@ -315,7 +298,6 @@
             }
         }
 
-        /* 优化深色模式 */
         @media (prefers-color-scheme: dark) {
             :root {
                 --background-color: #1a1a1a;
@@ -412,8 +394,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>中国近代史题库</h1>
-            <p>探索历史，学习智慧</p>
+            <h1>马克思主义基本原理题库</h1>
+            <p>探索真理，学习智慧</p>
         </header>
         <div id="questions-container">
             <!-- 问题将通过 JavaScript 动态加载 -->
@@ -450,7 +432,6 @@
                 currentQuestionNumber = parseInt(savedProgress);
             }
             
-            // 加载答题记录
             const savedAnswers = localStorage.getItem(prefix + 'userAnswers');
             if (savedAnswers) {
                 userAnswers = JSON.parse(savedAnswers);
@@ -466,12 +447,11 @@
 
         async function loadQuestions(questionNumber) {
             try {
-                const response = await fetch(`questions/${questionNumber}.json`);
+                const response = await fetch(`./questions/${questionNumber}.json`);
                 const question = await response.json();
                 displayQuestion(question);
                 updateNavigationState();
-                saveProgress(); // 保存当前进度
-                // 平滑滚动到顶部
+                saveProgress();
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
@@ -491,7 +471,7 @@
 
         // 初始化页面
         window.addEventListener('load', () => {
-            loadProgress(); // 加载上次的进度
+            loadProgress();
             loadQuestions(currentQuestionNumber);
         });
 
@@ -510,43 +490,34 @@
             }
         });
 
-        // 添加键盘快捷键
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft' && currentQuestionNumber > 1) {
-                currentQuestionNumber--;
-                loadQuestions(currentQuestionNumber);
-            } else if (event.key === 'ArrowRight' && currentQuestionNumber < totalQuestions) {
-                currentQuestionNumber++;
-                loadQuestions(currentQuestionNumber);
-            }
-        });
-
         function displayQuestion(question) {
             const container = document.getElementById('questions-container');
-            const date = question.HistoricalDate.year ? `相关年份：${question.HistoricalDate.year}年` : '';
             
-            const formattedExplain = question.Explain
+            const formattedExplain = question.explain
                 .replace(/\\n/g, '<br>')
                 .replace(/📚/g, '<span class="emoji">📚</span>')
                 .replace(/🔍/g, '<span class="emoji">🔍</span>')
                 .replace(/💡/g, '<span class="emoji">💡</span>');
             
             // 获取该题的历史答题记录
-            const previousAnswer = userAnswers[question.BookTestNo];
+            const previousAnswer = userAnswers[currentQuestionNumber];
             
             const questionHTML = `
-                <div class="question-card" data-answer="${question.Answer}">
+                <div class="question-card" data-answer="${question.answer}">
                     <div class="question-header">
-                        <span class="question-number">题目 ${question.BookTestNo}</span>
-                        <span class="question-date">${date}</span>
+                        <span class="question-number">题目 ${currentQuestionNumber}</span>
                     </div>
-                    <div class="question-title">${question.Title}</div>
+                    <div class="question-title">${question.title}</div>
                     <div class="options">
-                        ${question.SelectedItems.map(item => `
-                            <div class="option ${previousAnswer ? (previousAnswer.selected === item.ItemName ? (previousAnswer.isCorrect ? 'selected correct' : 'selected wrong') : (item.ItemName === question.Answer ? 'correct' : '')) : ''}" data-option="${item.ItemName}">
+                        ${question.selectedItems.map(item => `
+                            <div class="option ${previousAnswer ? 
+                                (previousAnswer.selected === item.ItemName ? 
+                                    (previousAnswer.isCorrect ? 'selected correct' : 'selected wrong') : 
+                                    (item.ItemName === question.answer ? 'correct' : '')
+                                ) : ''}" data-option="${item.ItemName}">
                                 ${item.ItemName}. ${item.Content}
-                                ${previousAnswer && (previousAnswer.selected === item.ItemName || item.ItemName === question.Answer) ? 
-                                    `<span class="option-result show">${item.ItemName === question.Answer ? '✓' : '✗'}</span>` : 
+                                ${previousAnswer && (previousAnswer.selected === item.ItemName || (previousAnswer.selected !== item.ItemName && item.ItemName === question.answer)) ? 
+                                    `<span class="option-result show">${previousAnswer.selected === item.ItemName ? (previousAnswer.isCorrect ? '✓' : '✗') : '✓'}</span>` : 
                                     '<span class="option-result">✓</span>'}
                             </div>
                         `).join('')}
@@ -562,7 +533,7 @@
             
             // 添加选项点击事件
             const questionCard = container.lastElementChild;
-            const correctAnswer = question.Answer;
+            const correctAnswer = question.answer;
             const options = questionCard.querySelectorAll('.option');
             const explanation = questionCard.querySelector('.explanation');
 
@@ -572,7 +543,7 @@
                     const isCorrect = selectedOption === correctAnswer;
                     
                     // 保存答题记录
-                    userAnswers[question.BookTestNo] = {
+                    userAnswers[currentQuestionNumber] = {
                         selected: selectedOption,
                         isCorrect: isCorrect,
                         timestamp: new Date().toISOString()
