@@ -60,20 +60,40 @@
                                 @click="prevQuestion">
                             ← 上一题
                         </button>
+                        <button class="nav-button question-select-btn" @click="toggleQuestionList">
+                            ({{ currentQuestionNumber }}/{{ totalQuestions }})
+                        </button>
                         <button class="nav-button" 
                                 :disabled="currentQuestionNumber >= totalQuestions"
                                 @click="nextQuestion">
                             下一题 →
                         </button>
                     </div>
+                    <div class="question-list-modal" v-if="showQuestionList" @click="toggleQuestionList">
+                        <div class="question-list-content" @click.stop>
+                            <div class="question-list-header">
+                                <h3>选择题号</h3>
+                                <button class="close-btn" @click="toggleQuestionList">×</button>
+                            </div>
+                            <div class="question-list">
+                                <button v-for="n in totalQuestions" 
+                                        :key="n" 
+                                        :class="['question-number-btn', { active: n === currentQuestionNumber }]"
+                                        @click="selectQuestion(n)">
+                                    {{ n }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             `,
             setup() {
                 const currentQuestionNumber = ref(1);
-                const totalQuestions = 683;
+                const totalQuestions = 715;
                 const currentQuestion = ref(null);
                 const userAnswers = ref({});
                 const showResult = ref(false);
+                const showQuestionList = ref(false);
                 const router = VueRouter.useRouter();
 
                 const formattedExplanation = computed(() => {
@@ -171,6 +191,15 @@
                     }
                 };
 
+                const toggleQuestionList = () => {
+                    showQuestionList.value = !showQuestionList.value;
+                };
+
+                const selectQuestion = (number) => {
+                    currentQuestionNumber.value = number;
+                    showQuestionList.value = false;
+                };
+
                 watch(currentQuestionNumber, (newValue) => {
                     loadQuestion(newValue);
                 });
@@ -186,10 +215,13 @@
                     currentQuestion,
                     userAnswer,
                     showResult,
+                    showQuestionList,
                     formattedExplanation,
                     selectAnswer,
                     prevQuestion,
-                    nextQuestion
+                    nextQuestion,
+                    toggleQuestionList,
+                    selectQuestion
                 };
             }
         };
