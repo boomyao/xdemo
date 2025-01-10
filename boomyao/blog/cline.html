@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cline - 智能代码助手解析</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF2442;
+            --secondary-color: #8A2BE2;
+            --bg-color: #FFFFFF;
+            --text-color: #333333;
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            background: linear-gradient(120deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-top: -30px;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .component {
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .component h3 {
+            color: #0366d6;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e1e4e8;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            margin: 0 4px;
+            color: #24292e;
+        }
+
+        .diagram {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        code {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            display: block;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-item:hover {
+            transform: scale(1.03);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .note {
+            background: linear-gradient(120deg, #fff8dc 0%, #fffacd 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+        }
+
+        .rule-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .rule-list li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .rule-list li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .section-divider {
+            border-top: 2px dashed var(--primary-color);
+            margin: 40px 0;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cline</h1>
+        <div class="subtitle">基于 AI Agent 架构的智能代码助手</div>
+
+        <div class="section">
+            <h2><i class="fas fa-info-circle"></i> 什么是 Cline？</h2>
+            <p>Cline 是一个专门面向代码开发的 AI Agent，它围绕大语言模型（LLM）构建，能够理解和执行各种编程任务。作为一个智能代码助手，它通过持续的<strong style="color: var(--primary-color);">循环运转</strong>来完成编程相关的任务。</p>
+            <div style="margin-top: 15px;">
+                <span class="tag">代码编写</span>
+                <span class="tag">代码分析</span>
+                <span class="tag">代码重构</span>
+                <span class="tag">问题诊断</span>
+                <span class="tag">文档生成</span>
+            </div>
+        </div>
+
+        <div class="diagram">
+            <svg width="600" height="400" viewBox="0 0 600 400">
+                <!-- 背景圆环 -->
+                <circle cx="300" cy="200" r="180" fill="none" stroke="#e1e4e8" stroke-width="2"/>
+                
+                <!-- 三个主要组件 -->
+                <g transform="translate(300,200)">
+                    <!-- 开发者 -->
+                    <circle cx="-120" cy="-120" r="60" fill="#4CAF50" fill-opacity="0.1" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="-120" y="-115" text-anchor="middle" fill="#4CAF50" font-size="16">开发者</text>
+                    <text x="-120" y="-95" text-anchor="middle" fill="#666" font-size="12">指导和决策</text>
+                    
+                    <!-- LLM -->
+                    <circle cx="120" cy="-120" r="60" fill="#2196F3" fill-opacity="0.1" stroke="#2196F3" stroke-width="2"/>
+                    <text x="120" y="-115" text-anchor="middle" fill="#2196F3" font-size="16">LLM</text>
+                    <text x="120" y="-95" text-anchor="middle" fill="#666" font-size="12">思考和处理</text>
+                    
+                    <!-- 开发工具 -->
+                    <circle cx="0" cy="120" r="60" fill="#FF9800" fill-opacity="0.1" stroke="#FF9800" stroke-width="2"/>
+                    <text x="0" y="125" text-anchor="middle" fill="#FF9800" font-size="16">ClineHost</text>
+                    <text x="0" y="145" text-anchor="middle" fill="#666" font-size="12">执行和反馈</text>
+                    
+                    <!-- 连接线 -->
+                    <line x1="-60" y1="-60" x2="60" y2="-60" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="-60" y1="-60" x2="0" y2="60" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="60" y1="-60" x2="0" y2="60" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+                </g>
+            </svg>
+        </div>
+
+        <div class="section">
+          <h2><i class="fas fa-sync"></i> 循环机制</h2>
+          <div class="code-block" style="font-size: 1.1em; line-height: 1.6; white-space: pre;">
+while (任务未完成) {
+
+  // 1. 开发者输入
+  task = 开发者.提供任务()
+  
+  // 2. LLM 分析
+  plan = LLM.分析任务(task)
+  nextAction = LLM.决策下一步()
+  
+  // 3. 工具调用
+  if (需要执行代码操作) {
+      // 例如：读写文件、执行命令等
+      result = 开发工具.执行操作(nextAction)
+      
+      // 4. 开发者确认
+      if (!开发者.确认操作(result)) {
+          continue  // 重新规划
+      }
+  }
+  
+  // 5. 更新状态
+  if (LLM.评估任务完成()) {
+      break  // 任务完成，退出循环
+  }
+  
+  // 6. 准备下一轮循环
+  if (需要继续优化) {
+      feedback = 开发者.提供反馈()
+      context = 开发工具.获取最新状态()
+      continue
+  }
+            }
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-brain"></i> LLM 系统提示词</h2>
+
+            <p>在 Cline 中，LLM部分只是一段几百行的<strong style="color: var(--primary-color);">系统提示词</strong>，它声明了所有 Cline 的工具和能力，可以在源码中查看。</p>
+
+            <code>
+              <pre>
+You are Cline, a highly skilled software engineer with extensive knowledge
+in many programming languages, frameworks, design patterns,and best practices.
+
+====
+TOOL
+
+# Tools
+...
+# Tool Use Examples
+...
+# Tool Use Guidelines
+...
+
+====
+CAPABILITIES
+
+====
+RULES
+
+              </pre>
+            </code>
+            
+            <div class="tool-card">
+                <p>🎯 <strong>系统能力</strong></p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-terminal feature-icon"></i>
+                        <h3>命令执行</h3>
+                        <p>执行系统命令<br>处理命令输出</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-file-alt feature-icon"></i>
+                        <h3>文件操作</h3>
+                        <p>读写文件内容<br>搜索文件系统</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-code-branch feature-icon"></i>
+                        <h3>版本控制</h3>
+                        <p>Git 操作支持<br>代码版本管理</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-project-diagram feature-icon"></i>
+                        <h3>项目管理</h3>
+                        <p>依赖管理<br>项目构建</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <p>🛠️ <strong>核心工具集</strong></p>
+                <div class="tool-card">
+                    <div class="tool-name"><i class="fas fa-terminal"></i> execute_command</div>
+                    <p>执行系统命令的神器</p>
+                    <p>• 支持所有系统命令</p>
+                    <p>• 自动处理路径问题</p>
+                    <p>• 提供执行状态反馈</p>
+                    <code>
+&lt;execute_command&gt;
+  &lt;command&gt;npm install&lt;/command&gt;
+&lt;/execute_command&gt;
+                    </code>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-name"><i class="fas fa-file-code"></i> read_file</div>
+                    <p>智能文件读取工具</p>
+                    <p>• 支持多种文件格式</p>
+                    <p>• 自动提取文本内容</p>
+                    <p>• 保留文件结构信息</p>
+                    <code>
+&lt;read_file&gt;
+  &lt;path&gt;src/main.js&lt;/path&gt;
+&lt;/read_file&gt;
+                    </code>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-name"><i class="fas fa-edit"></i> write_to_file</div>
+                    <p>文件写入与更新工具</p>
+                    <p>• 支持文件创建与覆盖</p>
+                    <p>• 自动处理编码问题</p>
+                    <p>• 保证数据完整性</p>
+                    <code>
+&lt;write_to_file&gt;
+  &lt;path&gt;config.json&lt;/path&gt;
+  &lt;content&gt;{"version": "1.0"}&lt;/content&gt;
+&lt;/write_to_file&gt;
+                    </code>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-name"><i class="fas fa-search"></i> search_files</div>
+                    <p>强大的文件搜索能力</p>
+                    <p>• 支持正则表达式</p>
+                    <p>• 可指定搜索范围</p>
+                    <p>• 结果高亮显示</p>
+                    <code>
+&lt;search_files&gt;
+  &lt;path&gt;src&lt;/path&gt;
+  &lt;regex&gt;function.*&lt;/regex&gt;
+&lt;/search_files&gt;
+                    </code>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <p>💡 <strong>告诉 LLM 如何思考</strong></p>
+                <ul class="rule-list">
+                  <li>每次只执行一个工具调用，确保操作的原子性</li>
+                  <li>等待用户确认后继续，保证交互的可控性</li>
+                  <li>保持清晰的交互流程，提供详细的操作反馈</li>
+                  <li>遵循系统环境约束，确保命令兼容性</li>
+                  <li>正确处理错误情况，提供清晰的错误提示</li>
+                  <li>在开始任务前，确保理解所有必要的工具和命令</li>
+                  <li>遇到问题时，优先查看错误信息和系统日志</li>
+                  <li>保持代码风格一致，遵循项目规范</li>
+                  <li>及时保存重要的修改，做好版本控制</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 添加滚动动画
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.section, .feature-item, .tool-card').forEach((el) => {
+            observer.observe(el);
+        });
+    });
+    </script>
+</body>
+</html>
