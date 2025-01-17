@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水星与地球密度比较</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/PixiPlugin.min.js"></script>
+    <script src="https://pixijs.download/v7.4.0/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        #canvas-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+        }
+        #canvas-container > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+  <div id="canvas-container">
+    <div id="AView"></div>
+    <div id="BView">
+      <div id="question" style="width: 67%;padding: 20px;">
+        <p>
+          水星是太阳系中距离太阳最近的行星，其平均质量密度与地球的平均质量密度可视为相同。已知水星半径约为地球半径的<span class="mathjax-inline">\(\frac{3}{8}\)</span>，则靠近水星表面运动的卫星与地球近地卫星做匀速圆周运动的线速度之比约为(  )？
+        </p>
+        <p style="display: flex; justify-content: space-between;">
+          <span>A. 64:9</span>
+          <span>B. 8:3</span>
+          <span>C. 3:8</span>
+          <span>D. 9:64</span>
+          <span></span>
+        </p>
+      </div>
+      <div id="transcript" style="position: absolute;bottom: 5rem;left: 0;right: 0;font-size: 1.5rem;color: white;padding: 1rem;">
+        <style>
+          #transcript p {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            clip-path: inset(0 100% 0 0);
+          }
+        </style>
+        <p id="transcript-text-1">水星是太阳系中距离太阳最近的行星，其平均质量密度与地球的平均质量密度可视为相同。</p>
+        <p id="transcript-text-2">已知水星半径约为地球半径的<span class="mathjax-inline">\(\frac{3}{8}\)</span></p>
+        <p id="transcript-text-3">求水星表面运动的卫星与地球近地卫星做匀速圆周运动的线速度之比</p>
+        <p id="transcript-text-4">开始思考</p>
+        <p id="transcript-text-4_1">5</p>
+        <p id="transcript-text-4_2">4</p>
+        <p id="transcript-text-4_3">3</p>
+        <p id="transcript-text-4_4">2</p>
+        <p id="transcript-text-4_5">1</p>
+      </div>
+      <div id="answer" style="opacity: 0;width: 33%;padding: 20px;color: white;position: absolute;top: 20%;right: 10%; background-color: rgba(0, 0, 0, 0.5);border-radius: 10px;">
+        <style>
+          #answer p {
+            clip-path: inset(0 100% 0 0);
+          }
+        </style>
+        <p id="answer-text-1">让我们用万有引力定律和线速度公式来解决这个问题</p>
+        <p id="answer-text-2">根据万有引力定律：<span class="mathjax-inline">\(F = G\frac{Mm}{r^2}\)</span></p>
+        <p id="answer-text-3">对于匀速圆周运动：<span class="mathjax-inline">\(F = \frac{mv^2}{r}\)</span></p>
+        <p id="answer-text-4">两式联立，消去m和F，得到：<span class="mathjax-inline">\(v^2 = \frac{GM}{r}\)</span></p>
+        <p id="answer-text-5">设水星和地球的密度为ρ，则质量<span class="mathjax-inline">\(M = \frac{4}{3}\pi r^3\rho\)</span></p>
+        <p id="answer-text-6">代入得到：<span class="mathjax-inline">\(v^2 = \frac{4}{3}\pi G\rho r^2\)</span></p>
+        <p id="answer-text-7">由于等式右边除了r以外都是常数，因此线速度<span class="mathjax-inline">\(v \propto r\)</span></p>
+        <p id="answer-text-8">水星半径是地球的<span class="mathjax-inline">\(\frac{3}{8}\)</span>，所以线速度之比为<span class="mathjax-inline">\(\frac{3}{8}\)</span></p>
+        <p id="answer-text-9">答案为C</p>
+      </div>
+    </div>
+  </div>
+    <script>
+        const initPixi = async () => {
+          gsap.registerPlugin(PixiPlugin);
+          PixiPlugin.registerPIXI(PIXI);
+          const app = new PIXI.Application({
+              width: 1280,
+              height: 720,
+              autoDensity: true,
+              backgroundAlpha: 0,
+          });
+          document.getElementById('AView').appendChild(app.view);
+          
+          return app;
+        }
+
+        const onload = async () => {
+          const pixiApp = await initPixi();
+
+          const stageBackground = new PIXI.Graphics();
+          stageBackground.beginFill(0x000B1E);
+          stageBackground.drawRect(0, 0, pixiApp.screen.width, pixiApp.screen.height);
+          stageBackground.endFill();
+          stageBackground.alpha = 0;
+          pixiApp.stage.addChild(stageBackground);
+
+          // 创建一个容器来放置所有天体
+          const solarSystem = new PIXI.Container();
+          solarSystem.position.set(pixiApp.screen.width / 3, pixiApp.screen.height / 2);
+          solarSystem.alpha = 0;
+          pixiApp.stage.addChild(solarSystem);
+
+          // 创建发光效果的太阳
+          const sunGlow = new PIXI.Graphics();
+          sunGlow.beginFill(0xFF6B00, 0.3);
+          sunGlow.drawCircle(0, 0, 65);
+          sunGlow.endFill();
+          solarSystem.addChild(sunGlow);
+
+          const sun = new PIXI.Graphics();
+          const sunGradient = new PIXI.Graphics();
+          sunGradient.beginFill(0xFFF3B1);
+          sunGradient.drawCircle(0, 0, 50);
+          sunGradient.endFill();
+          
+          sun.beginFill(0xFFB700);
+          sun.drawCircle(0, 0, 50);
+          sun.endFill();
+          solarSystem.addChild(sun);
+          solarSystem.addChild(sunGradient);
+          sunGradient.alpha = 0.7;
+
+          // 创建星星背景
+          for (let i = 0; i < 100; i++) {
+            const star = new PIXI.Graphics();
+            const size = Math.random() * 2;
+            star.beginFill(0xFFFFFF, 0.8);
+            star.drawCircle(0, 0, size);
+            star.endFill();
+            star.position.set(
+              (Math.random() - 0.5) * pixiApp.screen.width,
+              (Math.random() - 0.5) * pixiApp.screen.height
+            );
+            solarSystem.addChild(star);
+          }
+
+          // 创建水星轨道
+          const mercuryOrbit = new PIXI.Graphics();
+          mercuryOrbit.lineStyle(1, 0x3B4359, 0.5);
+          mercuryOrbit.drawCircle(0, 0, 120);
+          solarSystem.addChild(mercuryOrbit);
+
+          // 创建水星
+          const mercury = new PIXI.Graphics();
+          mercury.beginFill(0x937264);
+          mercury.drawCircle(0, 0, 15);
+          mercury.endFill();
+          
+          const mercuryHighlight = new PIXI.Graphics();
+          mercuryHighlight.beginFill(0xB5A397, 0.5);
+          mercuryHighlight.drawCircle(-5, -5, 8);
+          mercuryHighlight.endFill();
+          
+          mercury.addChild(mercuryHighlight);
+          mercury.position.x = 120;
+          solarSystem.addChild(mercury);
+
+          // 创建地球轨道
+          const earthOrbit = new PIXI.Graphics();
+          earthOrbit.lineStyle(1, 0x3B4359, 0.5);
+          earthOrbit.drawCircle(0, 0, 200);
+          solarSystem.addChild(earthOrbit);
+
+          // 创建地球
+          const earth = new PIXI.Graphics();
+          earth.beginFill(0x2E5C9C);
+          earth.drawCircle(0, 0, 40);
+          earth.endFill();
+
+          // 添加地球大气层效果
+          const earthAtmosphere = new PIXI.Graphics();
+          earthAtmosphere.beginFill(0x7AB3FF, 0.3);
+          earthAtmosphere.drawCircle(0, 0, 43);
+          earthAtmosphere.endFill();
+          earth.addChild(earthAtmosphere);
+
+          // 添加陆地效果
+          const earthLand = new PIXI.Graphics();
+          earthLand.beginFill(0x3D8E54, 0.5);
+          earthLand.drawCircle(-15, -15, 20);
+          earthLand.drawCircle(10, 10, 15);
+          earthLand.endFill();
+          earth.addChild(earthLand);
+
+          earth.position.x = 200;
+          solarSystem.addChild(earth);
+
+          // 创建半径比例指示线
+          const radiusLines = new PIXI.Container();
+          radiusLines.alpha = 0;
+          solarSystem.addChild(radiusLines);
+
+          // 水星半径线
+          const mercuryRadiusLine = new PIXI.Graphics();
+          mercuryRadiusLine.lineStyle(2, 0xFFFFFF, 0.5);
+          mercuryRadiusLine.moveTo(120, 0);
+          mercuryRadiusLine.lineTo(120, 15);
+          mercuryRadiusLine.endFill();
+          radiusLines.addChild(mercuryRadiusLine);
+
+          // 地球半径线
+          const earthRadiusLine = new PIXI.Graphics();
+          earthRadiusLine.lineStyle(2, 0xFFFFFF, 0.5);
+          earthRadiusLine.moveTo(200, 0);
+          earthRadiusLine.lineTo(200, 40);
+          earthRadiusLine.endFill();
+          radiusLines.addChild(earthRadiusLine);
+
+          // 添加比例标签
+          const style = new PIXI.TextStyle({
+            fontFamily: 'Arial',
+            fontSize: 16,
+            fill: '#ffffff',
+          });
+
+          const mercuryLabel = new PIXI.Text('3', style);
+          mercuryLabel.position.set(120 + 5, 7);
+          mercuryLabel.alpha = 0;
+          solarSystem.addChild(mercuryLabel);
+
+          const earthLabel = new PIXI.Text('8', style);
+          earthLabel.position.set(200 + 5, 20);
+          earthLabel.alpha = 0;
+          solarSystem.addChild(earthLabel);
+
+          // 创建水星卫星
+          const mercurySatellite = new PIXI.Graphics();
+          mercurySatellite.beginFill(0xCCCCCC);
+          mercurySatellite.drawCircle(0, 0, 4);
+          mercurySatellite.endFill();
+          mercurySatellite.position.set(120, -20);
+          mercurySatellite.alpha = 0;
+          solarSystem.addChild(mercurySatellite);
+
+          // 创建水星卫星轨道
+          const mercurySatelliteOrbit = new PIXI.Graphics();
+          mercurySatelliteOrbit.lineStyle(1, 0x3B4359, 0.3);
+          mercurySatelliteOrbit.drawCircle(120, 0, 20);
+          mercurySatelliteOrbit.alpha = 0;
+          solarSystem.addChild(mercurySatelliteOrbit);
+
+          // 创建地球卫星
+          const earthSatellite = new PIXI.Graphics();
+          earthSatellite.beginFill(0xCCCCCC);
+          earthSatellite.drawCircle(0, 0, 6);
+          earthSatellite.endFill();
+          earthSatellite.position.set(200, -50);
+          earthSatellite.alpha = 0;
+          solarSystem.addChild(earthSatellite);
+
+          // 创建地球卫星轨道
+          const earthSatelliteOrbit = new PIXI.Graphics();
+          earthSatelliteOrbit.lineStyle(1, 0x3B4359, 0.3);
+          earthSatelliteOrbit.drawCircle(200, 0, 50);
+          earthSatelliteOrbit.alpha = 0;
+          solarSystem.addChild(earthSatelliteOrbit);
+
+          const onPlay = () => {
+             // 添加发光动画
+            const glowTl = gsap.timeline({repeat: -1});
+            glowTl.to(sunGlow, {
+              pixi: { alpha: 0.1 },
+              duration: 1.5,
+              ease: 'power1.inOut'
+            })
+            .to(sunGlow, {
+              pixi: { alpha: 0.3 },
+              duration: 1.5,
+              ease: 'power1.inOut'
+            });
+
+            const tl = gsap.timeline();
+
+            tl.to('#question', {
+              color: 'white',
+              duration: 1,
+              ease: 'power1.inOut',
+            })
+            .to(solarSystem, {
+              alpha: 1,
+              duration: 0.1,
+              ease: 'power1.inOut',
+            }, '<')
+            .to(stageBackground, {
+              alpha: 1,
+              duration: 2,
+              ease: 'power1.inOut',
+            }, '<')
+            .to('#transcript-text-1', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.inOut',
+            })
+            .from(solarSystem.scale, {
+              x: 0,
+              y: 0,
+              duration: 1.5,
+              ease: 'back.out(1.7)'
+            })
+            .to([mercury, earth], {
+              pixi: {
+                rotation: 360
+              },
+              duration: 2,
+              repeat: -1,
+              ease: 'none'
+            }, '-=0.5')
+            // 添加第二段文字动画和半径比例展示
+            .to('#transcript-text-1', {
+              opacity: 0,
+              duration: 0.1,
+            })
+            .to('#transcript-text-2', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.inOut',
+            })
+            .to(radiusLines, {
+              pixi: { alpha: 1 },
+              duration: 1,
+              ease: 'power2.inOut',
+            })
+            .to([mercuryLabel, earthLabel], {
+              pixi: { alpha: 1 },
+              duration: 1,
+              stagger: 0.3,
+              ease: 'power2.inOut',
+            })
+            // 添加第三段文字动画和卫星动画
+            .to('#transcript-text-2', {
+              opacity: 0,
+              duration: 0.1,
+            })
+            .to('#transcript-text-3', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.inOut',
+            })
+            .to([mercurySatelliteOrbit, earthSatelliteOrbit], {
+              pixi: { alpha: 1 },
+              duration: 1,
+              ease: 'power2.inOut',
+            })
+            .to([mercurySatellite, earthSatellite], {
+              pixi: { alpha: 1 },
+              duration: 1,
+              ease: 'power2.inOut',
+            })
+            .to(mercurySatellite, {
+              pixi: {
+                angle: 360
+              },
+              duration: 3,
+              repeat: -1,
+              ease: 'none',
+              onUpdate: function() {
+                const time = this.time() % 3;
+                const angle = (time / 3) * Math.PI * 2;
+                const radius = 20;
+                mercurySatellite.position.x = 120 + radius * Math.cos(angle);
+                mercurySatellite.position.y = radius * Math.sin(angle);
+              }
+            }, '<')
+            .to(earthSatellite, {
+              pixi: {
+                angle: 360
+              },
+              duration: 3,
+              repeat: -1,
+              ease: 'none',
+              onUpdate: function() {
+                const time = this.time() % 3;
+                const angle = (time / 3) * Math.PI * 2;
+                const radius = 50;
+                earthSatellite.position.x = 200 + radius * Math.cos(angle);
+                earthSatellite.position.y = radius * Math.sin(angle);
+              }
+            }, '<');
+
+            tl
+            .to('#transcript-text-3', {
+              opacity: 0,
+              duration: 0.1,
+            })
+            .to('#transcript-text-4', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.inOut',
+              onComplete: function() {
+                onTranscriptComplete('#transcript-text-4');
+              }
+            })
+            .to('#transcript-text-4_1', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1,
+              ease: 'power1.inOut',
+              onComplete: function() {
+                onTranscriptComplete('#transcript-text-4_1');
+              }
+            })
+            .to('#transcript-text-4_2', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1,
+              ease: 'power1.inOut',
+              onComplete: function() {
+                onTranscriptComplete('#transcript-text-4_2');
+              }
+            })
+            .to('#transcript-text-4_3', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1,
+              ease: 'power1.inOut',
+              onComplete: function() {
+                onTranscriptComplete('#transcript-text-4_3');
+              }
+            })
+            .to('#transcript-text-4_4', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1,
+              ease: 'power1.inOut',
+              onComplete: function() {
+                onTranscriptComplete('#transcript-text-4_4');
+              }
+            })
+            .to('#transcript-text-4_5', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1,
+              ease: 'power1.inOut',
+              onComplete: function() {
+                onTranscriptComplete('#transcript-text-4_5');
+              }
+            });
+
+            tl.to(solarSystem, {
+              x: 200,
+              duration: 1,
+              ease: 'power1.inOut',
+            })
+            .to('#answer', {
+              opacity: 1,
+              duration: 1,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-1', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-2', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-3', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-4', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-5', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-6', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-7', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-8', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            })
+            .to('#answer-text-9', {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 2,
+              ease: 'power1.out',
+            });
+
+            function onTranscriptComplete(id) {
+              gsap.set(id, {
+                clipPath: 'inset(0 100% 0 0)',
+              });
+            }
+          }
+
+          setTimeout(() => {
+            onPlay();
+          }, 1000);
+        }
+        window.onload = onload;
+    </script>
+</body>
+</html>

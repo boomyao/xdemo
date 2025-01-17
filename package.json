@@ -1,0 +1,10 @@
+{
+  "name": "html-to-image-exporter",
+  "version": "1.0.0",
+  "description": "Export HTML pages to images and videos",
+  "main": "export-html-to-images.js",
+  "dependencies": {
+    "puppeteer": "^24.1.0",
+    "puppeteer-screen-recorder": "^2.1.2"
+  }
+} 
