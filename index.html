@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无限抽象 - xdemo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+        }
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title-container {
+            position: relative;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+        .title-main {
+            font-size: clamp(2rem, 10vw, 5rem);
+            font-weight: bold;
+            letter-spacing: 0.3em;
+            opacity: 0;
+            position: relative;
+            text-transform: uppercase;
+            margin-right: -0.3em;
+            white-space: nowrap;
+        }
+        .title-sub {
+            font-size: clamp(1rem, 5vw, 2.5rem);
+            font-weight: 300;
+            letter-spacing: clamp(0.5em, 3vw, 1em);
+            opacity: 0;
+            margin-top: 1rem;
+            color: #4a9eff;
+            text-transform: lowercase;
+            margin-right: -1em;
+            white-space: nowrap;
+        }
+        @media (max-width: 768px) {
+            .title-main {
+                letter-spacing: 0.2em;
+                margin-right: -0.2em;
+            }
+            .title-sub {
+                letter-spacing: 0.5em;
+                margin-right: -0.5em;
+            }
+        }
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: difference;
+            opacity: 0;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.0/pixi.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="content">
+        <div class="title-container">
+            <h1 class="title-main">无限抽象</h1>
+            <div class="title-main glitch">无限抽象</div>
+            <div class="title-main glitch">无限抽象</div>
+            <h2 class="title-sub">xdemo</h2>
+        </div>
+    </div>
+    <script>
+        // 初始化 PixiJS
+        const app = new PIXI.Application({
+            view: document.getElementById('canvas'),
+            resizeTo: window,
+            backgroundColor: 0x000000,
+            antialias: true
+        });
+
+        // 创建抽象图形
+        class AbstractShape {
+            constructor() {
+                this.graphics = new PIXI.Graphics();
+                this.reset();
+                app.stage.addChild(this.graphics);
+                // 初始化形状类型和变形进度
+                this.isCircle = Math.random() < 0.5;
+                this.morphProgress = 0;
+                this.morphDirection = Math.random() < 0.5 ? 1 : -1;
+            }
+
+            reset() {
+                this.x = Math.random() * app.screen.width;
+                this.y = Math.random() * app.screen.height;
+                this.size = Math.random() * 50 + 20;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.hue = Math.random() * 360;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > app.screen.width) this.vx *= -1;
+                if (this.y < 0 || this.y > app.screen.height) this.vy *= -1;
+
+                // 更新形状变形进度
+                this.morphProgress += 0.01 * this.morphDirection;
+                if (this.morphProgress >= 1 || this.morphProgress <= 0) {
+                    this.morphDirection *= -1;
+                }
+
+                this.graphics.clear();
+                this.graphics.lineStyle(2, `hsl(${this.hue}, 50%, 50%)`);
+                this.graphics.beginFill(`hsl(${this.hue}, 50%, 30%)`, 0.3);
+                
+                // 使用 morphProgress 在矩形和圆形之间平滑过渡
+                const circleRadius = this.size / 2;
+                const rectSize = this.size;
+                
+                if (this.isCircle) {
+                    const currentSize = circleRadius + (rectSize - circleRadius) * this.morphProgress;
+                    this.graphics.drawCircle(this.x, this.y, currentSize);
+                } else {
+                    const currentSize = rectSize - (rectSize - circleRadius) * this.morphProgress;
+                    this.graphics.drawRect(this.x - currentSize, this.y - currentSize, currentSize * 2, currentSize * 2);
+                }
+
+                this.hue = (this.hue + 0.5) % 360;
+            }
+        }
+
+        // 创建多个抽象图形
+        const shapes = Array.from({ length: 20 }, () => new AbstractShape());
+
+        // 动画循环
+        app.ticker.add(() => {
+            shapes.forEach(shape => shape.update());
+        });
+
+        // 新的 GSAP 动画
+        const tl = gsap.timeline({ defaults: { duration: 1 } });
+        
+        // 主标题动画
+        tl.to(".title-main", {
+            opacity: 1,
+            duration: 2,
+            ease: "power2.inOut"
+        })
+        .to(".glitch", {
+            opacity: 0.5,
+            duration: 0.1,
+            stagger: 0.1,
+            ease: "none"
+        }, "-=1.5");
+
+        // 副标题动画
+        tl.to(".title-sub", {
+            opacity: 1,
+            duration: 1.5,
+            ease: "power2.out"
+        }, "-=1");
+
+        // 故障效果动画
+        function createGlitchEffect() {
+            const glitchTimeline = gsap.timeline({
+                repeat: -1,
+                repeatDelay: 3
+            });
+
+            glitchTimeline.to(".glitch", {
+                skewX: 70,
+                duration: 0.1,
+                stagger: 0.1
+            })
+            .to(".glitch", {
+                skewX: 0,
+                duration: 0.1
+            })
+            .to(".glitch", {
+                x: "10",
+                duration: 0.1
+            })
+            .to(".glitch", {
+                x: "0",
+                duration: 0.1
+            })
+            .to(".glitch", {
+                x: "-10",
+                duration: 0.1
+            })
+            .to(".glitch", {
+                x: "0",
+                duration: 0.1
+            });
+
+            // 随机颜色变化
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    gsap.to(".title-main", {
+                        color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+                        duration: 0.1,
+                        yoyo: true,
+                        repeat: 1
+                    });
+                }
+            }, 2000);
+        }
+
+        createGlitchEffect();
+
+        // 鼠标移动效果
+        document.addEventListener('pointermove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            shapes.forEach(shape => {
+                const dx = mouseX - shape.x;
+                const dy = mouseY - shape.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 200) {
+                    const angle = Math.atan2(dy, dx);
+                    shape.vx -= Math.cos(angle) * 0.5;
+                    shape.vy -= Math.sin(angle) * 0.5;
+                }
+            });
+
+            // 添加标题的视差效果
+            gsap.to(".title-container", {
+                x: (mouseX - window.innerWidth / 2) * 0.02,
+                y: (mouseY - window.innerHeight / 2) * 0.02,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>
