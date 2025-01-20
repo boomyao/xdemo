@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码展示窗口</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #2b2b2b;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            gap: 20px;
+        }
+
+        .window {
+            background: #1f1f1f;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
+            width: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 182, 193, 0.1);
+            position: relative;
+        }
+
+        .titlebar {
+            background: #292929;
+            padding: 12px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            opacity: 0.9;
+        }
+
+        /* .button:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        } */
+
+        .close_btn {
+            background: #ff9ea3;
+            box-shadow: 0 0 10px rgba(255, 158, 163, 0.3);
+        }
+
+        .minimize {
+            background: #ffb2d4;
+            box-shadow: 0 0 10px rgba(255, 178, 212, 0.3);
+        }
+
+        .maximize {
+            background: #b8a7ff;
+            box-shadow: 0 0 10px rgba(184, 167, 255, 0.3);
+        }
+
+        .export-btn {
+            background: #ff9eb5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 158, 181, 0.3);
+            margin-top: 20px;
+        }
+
+        .export-btn:hover {
+            transform: scale(1.05);
+            background: #ffb2d4;
+        }
+
+        .content {
+            padding: 25px;
+            background: #1f1f1f;
+            color: #f0f0f0;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            overflow-x: auto;
+            min-height: 300px;
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        code {
+            display: block;
+            line-height: 1.8;
+        }
+
+        code span {
+            line-height: 1.8;
+            display: inline-block;
+        }
+
+        /* 代码高亮样式 - 小红书风格 */
+        .keyword { color: #ff9eb5; }   /* class, def 等关键字 - 温柔粉色 */
+        .function { color: #b8a7ff; }  /* 函数名 - 梦幻紫色 */
+        .parameter { color: #a5d7ff; } /* 参数名 - 天空蓝 */
+        .string { color: #ffd1dc; }    /* 字符串 - 浅粉色 */
+        .number { color: #98fb98; }    /* 数字 - 薄荷绿 */
+        .comment { color: #c6a4ce; }   /* 注释 - 淡紫色 */
+        .self { color: #ffb2d4; }      /* self 关键字 - 玫瑰粉 */
+
+        #export-container {
+            padding: 40px;
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="export-container">
+        <div class="window" id="window">
+            <div class="titlebar">
+                <div class="buttons">
+                    <div class="button close_btn"></div>
+                    <div class="button minimize"></div>
+                    <div class="button maximize"></div>
+                </div>
+            </div>
+            <div class="content">
+                <pre><code><span class="keyword">class</span> <span class="function">圆变正方形</span>(<span class="parameter">Scene</span>):
+    <span class="keyword">def</span> <span class="function">construct</span>(<span class="self">self</span>):
+        圆形1 = <span class="function">定义图形</span>(<span class="parameter">圆形</span>, <span class="parameter">颜色</span>=<span class="parameter">蓝色</span>, <span class="parameter">填充透明度</span>=<span class="number">0.5</span>)
+        正方形1 = <span class="function">定义图形</span>(<span class="parameter">正方形</span>, <span class="parameter">颜色</span>=<span class="parameter">绿色</span>, <span class="parameter">填充透明度</span>=<span class="number">0.8</span>)
+        <span class="self">self</span>.<span class="function">展示创建图形</span>(圆形1)
+        <span class="self">self</span>.<span class="function">停顿一会</span>()
+        <span class="self">self</span>.<span class="function">展示变换图形</span>(圆形1, 正方形1)
+        <span class="self">self</span>.<span class="function">停顿一会</span>()</code></pre>
+            </div>
+        </div>
+    </div>
+    <button class="export-btn" onclick="exportToPNG()">导出为PNG</button>
+
+    <script>
+        async function exportToPNG() {
+            const element = document.getElementById('export-container');
+            
+            try {
+                const canvas = await html2canvas(element, {
+                    backgroundColor: null,  // 设置透明背景
+                    scale: 2,  // 提高导出图片质量
+                    logging: false,
+                    useCORS: true
+                });
+
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.download = 'code-window.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                console.error('导出失败:', error);
+                alert('导出失败，请重试');
+            }
+        }
+    </script>
+</body>
+</html>

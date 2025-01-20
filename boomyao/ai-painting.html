@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>参数方程动画</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+        }
+        canvas {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let t = 0;
+        const w = 400;
+
+        canvas.width = w;
+        canvas.height = w;
+
+        function point(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 0.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function a(x, y) {
+            const r = Math.sqrt(x * x + y * y) * 0.05;
+            const theta = Math.atan2(y, x);
+            const spiral = r + t;
+            const wave = Math.sin(spiral * 3 + theta * 2) * 20;
+            const scale = Math.exp(-r * 0.1);
+            
+            return point(
+                200 + Math.cos(spiral) * (r * 8 + wave) * scale,
+                200 + Math.sin(spiral) * (r * 8 + wave) * scale
+            );
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(6, 6, 6, 1)';
+            ctx.fillRect(0, 0, w, w);
+            
+            ctx.fillStyle = `rgba(255, 255, 255, 0.14)`;
+            
+            for(let i = 0; i < 40000; i++) {
+                a(i % 400, Math.floor(i / 400));
+            }
+            
+            t += Math.PI / 90;
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+    </script>
+</body>
+</html> 
