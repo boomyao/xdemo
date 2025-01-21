@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>三角函数可视化</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // 初始化场景、相机和渲染器
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xfff6f6); // 温暖的粉白色背景
+
+        // 创建粗线条的辅助函数
+        function createThickLine(geometry, color, thickness = 0.01, count = 5, opacity = 0.9) {
+            const group = new THREE.Group();
+            const spacing = thickness / count;
+            
+            for (let i = 0; i < count; i++) {
+                const line = new THREE.Line(
+                    geometry.clone(),
+                    new THREE.LineBasicMaterial({ 
+                        color: color,
+                        transparent: true,
+                        opacity: opacity * (1 - 0.1 * i)  // 渐变透明度
+                    })
+                );
+                
+                // 计算偏移
+                const offset = (i - (count - 1) / 2) * spacing;
+                line.position.set(offset, 0, 0);
+                
+                group.add(line);
+            }
+            
+            return group;
+        }
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(3, 3, 3);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            alpha: true 
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        // 添加轨道控制器
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+
+        // 创建带箭头的坐标轴
+        function createAxisWithArrow(length, color) {
+            const group = new THREE.Group();
+            
+            // 创建轴线
+            const lineGeometry = new THREE.BufferGeometry();
+            const lineVertices = new Float32Array([
+                0, 0, 0,
+                length, 0, 0
+            ]);
+            lineGeometry.setAttribute('position', new THREE.BufferAttribute(lineVertices, 3));
+            const line = new THREE.Line(
+                lineGeometry,
+                new THREE.LineBasicMaterial({ color: color, linewidth: 2 })
+            );
+            group.add(line);
+            
+            // 创建箭头
+            const arrowGeometry = new THREE.ConeGeometry(0.1, 0.3, 8);
+            const arrowMaterial = new THREE.MeshBasicMaterial({ color: color });
+            const arrow = new THREE.Mesh(arrowGeometry, arrowMaterial);
+            arrow.position.x = length;
+            arrow.rotation.z = -Math.PI / 2;
+            group.add(arrow);
+            
+            return group;
+        }
+
+        // 创建三个坐标轴
+        const axesGroup = new THREE.Group();
+        
+        // X轴（红色）
+        const xAxis = createAxisWithArrow(5, 0xff0000);
+        axesGroup.add(xAxis);
+        
+        // Y轴（绿色）
+        const yAxis = createAxisWithArrow(5, 0x00ff00);
+        yAxis.rotation.z = Math.PI / 2;
+        axesGroup.add(yAxis);
+        
+        // Z轴（蓝色）
+        const zAxis = createAxisWithArrow(5, 0x0000ff);
+        zAxis.rotation.y = -Math.PI / 2;
+        axesGroup.add(zAxis);
+        
+        scene.add(axesGroup);
+
+        // 创建圆 - 使用渐变材质
+        const circleGeometry = new THREE.CircleGeometry(1, 128);
+        const circleMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0xffb6c1,  // 浅粉色
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.5
+        });
+        const circleEdges = new THREE.EdgesGeometry(circleGeometry);
+        const circle = new THREE.LineSegments(
+            circleEdges,
+            new THREE.LineBasicMaterial({ 
+                color: 0xff69b4,  // 粉红色
+                linewidth: 3,
+                transparent: true,
+                opacity: 0.9
+            })
+        );
+        circle.position.set(0, 2, 2);
+        circle.rotateY(Math.PI / 2);
+        scene.add(circle);
+
+        // 创建三角形
+        const triangleGeometry = new THREE.BufferGeometry();
+        const triangleMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0xffffff,
+            side: THREE.DoubleSide
+        });
+        const triangle = new THREE.Mesh(triangleGeometry, triangleMaterial);
+        scene.add(triangle);
+
+        // 创建临边（改为柔和的蓝色）
+        const adjacentGeometry = new THREE.BufferGeometry();
+        const adjacentGroup = createThickLine(
+            adjacentGeometry,
+            0x87ceeb,  // 天蓝色
+            0.02,      // 线条总厚度
+            7,         // 平行线数量
+            0.9        // 基础透明度
+        );
+        scene.add(adjacentGroup);
+
+        // 创建对边（改为柔和的黄色）
+        const oppositeGeometry = new THREE.BufferGeometry();
+        const oppositeGroup = createThickLine(
+            oppositeGeometry,
+            0xffd700,  // 金黄色
+            0.02,      // 线条总厚度
+            7,         // 平行线数量
+            0.9        // 基础透明度
+        );
+        scene.add(oppositeGroup);
+
+        // 创建y=2直线
+        const yLineGeometry = new THREE.BufferGeometry();
+        const yLineVertices = new Float32Array([
+            0, 2, 0,
+            5, 2, 0
+        ]);
+        yLineGeometry.setAttribute('position', new THREE.BufferAttribute(yLineVertices, 3));
+        const yLine = new THREE.Line(
+            yLineGeometry,
+            new THREE.LineBasicMaterial({ 
+                color: 0xdda0dd,  // 梅红色
+                linewidth: 2,
+                transparent: true,
+                opacity: 0.7
+            })
+        );
+        scene.add(yLine);
+
+        // 创建z=2直线
+        const zLineGeometry = new THREE.BufferGeometry();
+        const zLineVertices = new Float32Array([
+            0, 0, 2,
+            5, 0, 2
+        ]);
+        zLineGeometry.setAttribute('position', new THREE.BufferAttribute(zLineVertices, 3));
+        const zLine = new THREE.Line(
+            zLineGeometry,
+            new THREE.LineBasicMaterial({ 
+                color: 0xdda0dd,  // 梅红色
+                linewidth: 2,
+                transparent: true,
+                opacity: 0.7
+            })
+        );
+        scene.add(zLine);
+
+        // 存储所有垂直线段
+        const verticalLines = [];
+        const cosVerticalLines = []; // 存储 cosx 的线段
+        const lineWidth = 0.03; // 增加线段间距，降低频率
+        const animationDuration = 1; // 移动动画持续时间（秒）
+
+        // 创建 sinx 曲线
+        const sinCurveGeometry = new THREE.BufferGeometry();
+        const sinCurveGroup = createThickLine(
+            sinCurveGeometry,
+            0xff69b4,  // 亮粉色
+            0.02,      // 线条总厚度
+            7,         // 平行线数量
+            0.9        // 基础透明度
+        );
+        scene.add(sinCurveGroup);
+
+        // 创建 cosx 曲线
+        const cosCurveGeometry = new THREE.BufferGeometry();
+        const cosCurveGroup = createThickLine(
+            cosCurveGeometry,
+            0x40e0d0,  // 绿松石色
+            0.02,      // 线条总厚度
+            7,         // 平行线数量
+            0.9        // 基础透明度
+        );
+        scene.add(cosCurveGroup);
+
+        // 动画函数
+        let angle = Math.PI * 1.5;
+        let lastX = null;
+        let animationId = null;  // 用于存储动画帧ID
+        
+        function animate() {
+            // 检查是否完成了一个完整的2π周期
+            if (angle >= Math.PI * 1.5 + Math.PI * 2) {
+                cancelAnimationFrame(animationId);  // 停止动画
+                return;
+            }
+
+            animationId = requestAnimationFrame(animate);
+
+            // 更新控制器
+            controls.update();
+
+            // 更新角度
+            angle += Math.PI / 10 / 60; // 每秒π/10的角速度
+
+            // 计算圆上的点
+            const y = Math.cos(angle) + 2;  // 圆心y=2
+            const z = Math.sin(angle) + 2;  // 圆心z=2
+            const x = 0;  // 固定在x=0平面上
+
+            // 更新三角形顶点
+            const vertices = new Float32Array([
+                0, 2, 2,  // 圆心
+                0, y, z,  // 圆上的点
+                0, 2, z   // 圆心y投影
+            ]);
+            triangleGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+            // 更新临边
+            const adjacentVertices = new Float32Array([
+                0, 2, 2,
+                0, 2, z
+            ]);
+            adjacentGroup.children.forEach(line => {
+                line.geometry.setAttribute('position', new THREE.BufferAttribute(adjacentVertices, 3));
+            });
+
+            // 更新对边
+            const oppositeVertices = new Float32Array([
+                0, 2, z,
+                0, y, z
+            ]);
+            oppositeGroup.children.forEach(line => {
+                line.geometry.setAttribute('position', new THREE.BufferAttribute(oppositeVertices, 3));
+            });
+
+            // 计算当前 x 位置和对应的高度
+            const currentX = (angle - Math.PI * 1.5) * 0.5;
+            const height = y - 2; // 相对于中心线的高度（修改为相对于y=2）
+            const cosHeight = z - 2; // cos 的高度（修改为相对于z=2）
+
+            // 添加新的 sin 垂直线段
+            if (lastX === null || currentX - lastX >= lineWidth) {
+                // sin 线段
+                const lineGeometry = new THREE.BufferGeometry();
+                const lineVertices = new Float32Array([
+                    0, 2, z,           // 起始点：三角形对边的底部
+                    0, y, z            // 起始点：三角形对边的顶部
+                ]);
+                lineGeometry.setAttribute('position', new THREE.BufferAttribute(lineVertices, 3));
+                
+                const lineGroup = createThickLine(
+                    lineGeometry,
+                    0xffd700,  // 金黄色
+                    0.015,     // 线条总厚度
+                    5,         // 平行线数量
+                    0.8        // 基础透明度
+                );
+                scene.add(lineGroup);
+                verticalLines.push({
+                    group: lineGroup,
+                    startTime: Date.now(),
+                    startPos: { x: 0, y1: 2, z: z, y2: y },
+                    endPos: { x: currentX, y1: 2, z: 0, y2: height + 2 }
+                });
+
+                // cos 线段
+                const cosLineGeometry = new THREE.BufferGeometry();
+                const cosLineVertices = new Float32Array([
+                    0, 2, 2,           // 起始点：三角形临边的起点
+                    0, 2, z            // 起始点：三角形临边的终点
+                ]);
+                cosLineGeometry.setAttribute('position', new THREE.BufferAttribute(cosLineVertices, 3));
+                
+                const cosLineGroup = createThickLine(
+                    cosLineGeometry,
+                    0x87ceeb,  // 天蓝色
+                    0.015,     // 线条总厚度
+                    5,         // 平行线数量
+                    0.8        // 基础透明度
+                );
+                scene.add(cosLineGroup);
+                cosVerticalLines.push({
+                    group: cosLineGroup,
+                    startTime: Date.now(),
+                    startPos: { x: 0, y: 2, z1: 2, z2: z },
+                    endPos: { x: currentX, y: 0, z1: 2, z2: cosHeight + 2 }
+                });
+                
+                lastX = currentX;
+            }
+
+            // 更新 sin 线段位置
+            verticalLines.forEach((lineObj, index) => {
+                const elapsed = (Date.now() - lineObj.startTime) / 1000;
+                const progress = Math.min(elapsed / animationDuration, 1);
+                
+                // 使用缓动函数使动画更平滑
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                // 计算当前位置
+                const currentX = lineObj.startPos.x + (lineObj.endPos.x - lineObj.startPos.x) * easeProgress;
+                const currentZ = lineObj.startPos.z + (lineObj.endPos.z - lineObj.startPos.z) * easeProgress;
+                const currentY1 = lineObj.startPos.y1 + (lineObj.endPos.y1 - lineObj.startPos.y1) * easeProgress;
+                const currentY2 = lineObj.startPos.y2 + (lineObj.endPos.y2 - lineObj.startPos.y2) * easeProgress;
+
+                // 更新线段位置
+                const vertices = new Float32Array([
+                    currentX, currentY1, currentZ,
+                    currentX, currentY2, currentZ
+                ]);
+                lineObj.group.children.forEach(line => {
+                    line.geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+                });
+            });
+
+            // 更新 cos 线段位置
+            cosVerticalLines.forEach((lineObj, index) => {
+                const elapsed = (Date.now() - lineObj.startTime) / 1000;
+                const progress = Math.min(elapsed / animationDuration, 1);
+                
+                // 使用缓动函数使动画更平滑
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+                // 计算当前位置
+                const currentX = lineObj.startPos.x + (lineObj.endPos.x - lineObj.startPos.x) * easeProgress;
+                const currentY = lineObj.startPos.y + (lineObj.endPos.y - lineObj.startPos.y) * easeProgress;
+                const currentZ1 = lineObj.startPos.z1 + (lineObj.endPos.z1 - lineObj.startPos.z1) * easeProgress;
+                const currentZ2 = lineObj.startPos.z2 + (lineObj.endPos.z2 - lineObj.startPos.z2) * easeProgress;
+
+                // 更新线段位置
+                const vertices = new Float32Array([
+                    currentX, currentY, currentZ1,
+                    currentX, currentY, currentZ2
+                ]);
+                lineObj.group.children.forEach(line => {
+                    line.geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+                });
+            });
+
+            // 移除超出范围的 sin 线段
+            while (verticalLines.length > 0 && verticalLines[0].endPos.x < currentX - 5) {
+                scene.remove(verticalLines[0].group.children[0]);
+                verticalLines.shift();
+            }
+
+            // 移除超出范围的 cos 线段
+            while (cosVerticalLines.length > 0 && cosVerticalLines[0].endPos.x < currentX - 5) {
+                scene.remove(cosVerticalLines[0].group.children[0]);
+                cosVerticalLines.shift();
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // 添加窗口大小调整监听
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
