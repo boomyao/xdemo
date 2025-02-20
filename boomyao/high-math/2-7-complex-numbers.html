@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复数系统的演化</title>
+    <!-- 添加KaTeX支持 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+    <!-- 添加p5.js支持 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+    <style>
+        :root {
+            --rational-color: #FFD700;
+            --real-color: #4169E1;
+            --complex-color: #9370DB;
+            --warning-orange: #FFA500;
+            --evolution-green: #3CB371;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .evolution-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .left-side, .right-side {
+            width: 45%;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .dna-connector {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><path d="M50,0 Q80,100 20,200 Q80,300 20,400" stroke="%234169E1" fill="none" stroke-width="2"/><path d="M50,0 Q20,100 80,200 Q20,300 80,400" stroke="%239370DB" fill="none" stroke-width="2"/></svg>');
+            background-repeat: repeat-y;
+            background-size: contain;
+        }
+
+        .number-line {
+            height: 4px;
+            background: var(--real-color);
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .gap {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: red;
+            transform: translate(-50%, -50%);
+        }
+
+        .formula-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .timeline {
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(to right, var(--rational-color), var(--complex-color));
+            border-radius: 8px;
+            color: white;
+        }
+
+        @keyframes highlight {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .highlight {
+            animation: highlight 2s infinite;
+        }
+
+        .katex {
+            font-size: 1.2em;
+        }
+        .formula-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+        #dna-animation {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>复数系统的演化</h1>
+        
+        <div class="evolution-container">
+            <div class="left-side">
+                <h2>有理数 → 实数扩充</h2>
+                <div class="number-line" id="rational-line">
+                    <!-- 数轴将通过JavaScript动态生成 -->
+                </div>
+                <div class="equation-viz">
+                    <h3>$$x^2 - 2 = 0$$</h3>
+                    <!-- 抛物线图将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <div id="dna-animation"></div>
+
+            <div class="right-side">
+                <h2>实数 → 复数扩充</h2>
+                <div class="complex-plane" id="complex-plane">
+                    <!-- 复平面将通过JavaScript动态生成 -->
+                </div>
+                <div class="equation-viz">
+                    <h3>$$x^2 + 1 = 0$$</h3>
+                    <!-- 复平面上的抛物线将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <h2>判别式 $$\Delta = b^2 - 4ac$$</h2>
+            <div id="delta-positive" class="formula">
+                <div class="formula-content">
+                    $$\Delta \geq 0: x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+                </div>
+            </div>
+            <div id="delta-negative" class="formula">
+                <div class="formula-content">
+                    $$\Delta < 0: x = \frac{-b}{2a} \pm i\frac{\sqrt{|b^2 - 4ac|}}{2a}$$
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h2>数学发展时间轴</h2>
+            <!-- 时间轴将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script>
+        // 渲染LaTeX公式
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                ],
+                throwOnError: false,
+                strict: false,
+                trust: true,
+                macros: {
+                    "\\i": "\\mathrm{i}",
+                    "\\e": "\\mathrm{e}",
+                    "\\d": "\\mathrm{d}"
+                },
+                displayMode: true,
+                output: "html",
+                minRuleThickness: 0.05,
+                maxSize: Infinity,
+                maxExpand: 1000,
+                fleqn: false
+            });
+        });
+
+        // DNA动画
+        let dnaSketch = new p5(function(p) {
+            let particles = [];
+            const numParticles = 50;
+            
+            p.setup = function() {
+                let canvas = p.createCanvas(60, 400);
+                canvas.parent('dna-animation');
+                
+                for(let i = 0; i < numParticles; i++) {
+                    particles.push({
+                        y: i * (400/numParticles),
+                        offset: i * (p.TWO_PI / 20)
+                    });
+                }
+            };
+            
+            p.draw = function() {
+                p.clear();
+                p.noStroke();
+                
+                particles.forEach((particle, i) => {
+                    let t = p.frameCount * 0.02 + particle.offset;
+                    
+                    // 第一条螺旋
+                    let x1 = 30 + p.sin(t) * 20;
+                    p.fill(65, 105, 225, 150); // 蓝色
+                    p.ellipse(x1, particle.y, 4, 4);
+                    
+                    // 第二条螺旋
+                    let x2 = 30 + p.sin(t + p.PI) * 20;
+                    p.fill(147, 112, 219, 150); // 紫色
+                    p.ellipse(x2, particle.y, 4, 4);
+                    
+                    // 连接线
+                    if(i % 2 === 0) {
+                        p.stroke(200, 200, 200, 100);
+                        p.line(x1, particle.y, x2, particle.y);
+                    }
+                });
+            };
+        });
+
+        // 初始化D3
+        const margin = {top: 20, right: 20, bottom: 20, left: 20};
+        const width = 500 - margin.left - margin.right;
+        const height = 300 - margin.top - margin.bottom;
+
+        // 创建有理数数轴
+        const rationalLine = d3.select("#rational-line")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", 60)
+            .append("g")
+            .attr("transform", `translate(${margin.left},30)`);
+
+        // 创建数轴比例尺
+        const xScale = d3.scaleLinear()
+            .domain([-3, 3])
+            .range([0, width]);
+
+        // 绘制数轴
+        rationalLine.append("line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("stroke", "var(--rational-color)")
+            .attr("stroke-width", 2);
+
+        // 添加刻度
+        const ticks = [-2, -1.5, -1, 0, 1, 1.5, 2];
+        rationalLine.selectAll(".tick")
+            .data(ticks)
+            .enter()
+            .append("line")
+            .attr("x1", d => xScale(d))
+            .attr("x2", d => xScale(d))
+            .attr("y1", -5)
+            .attr("y2", 5)
+            .attr("stroke", "var(--rational-color)");
+
+        // 添加刻度标签
+        rationalLine.selectAll(".tick-label")
+            .data(ticks)
+            .enter()
+            .append("text")
+            .attr("x", d => xScale(d))
+            .attr("y", -10)
+            .attr("text-anchor", "middle")
+            .text(d => d);
+
+        // 标记√2位置
+        rationalLine.append("circle")
+            .attr("cx", xScale(Math.sqrt(2)))
+            .attr("cy", 0)
+            .attr("r", 5)
+            .attr("fill", "red")
+            .attr("class", "highlight");
+
+        // 创建复平面
+        const complexPlane = d3.select("#complex-plane")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${width/2 + margin.left},${height/2 + margin.top})`);
+
+        // 绘制坐标轴
+        complexPlane.append("line")
+            .attr("x1", -width/2)
+            .attr("x2", width/2)
+            .attr("stroke", "var(--real-color)")
+            .attr("stroke-width", 2);
+
+        complexPlane.append("line")
+            .attr("y1", -height/2)
+            .attr("y2", height/2)
+            .attr("stroke", "var(--complex-color)")
+            .attr("stroke-width", 2);
+
+        // 标记i和-i位置
+        complexPlane.selectAll(".i-points")
+            .data([1, -1])
+            .enter()
+            .append("circle")
+            .attr("cx", 0)
+            .attr("cy", d => d * 100)
+            .attr("r", 5)
+            .attr("fill", "var(--complex-color)")
+            .attr("class", "highlight");
+
+        // 添加标签
+        complexPlane.append("text")
+            .attr("x", 10)
+            .attr("y", -100)
+            .text("i")
+            .attr("fill", "var(--complex-color)");
+
+        complexPlane.append("text")
+            .attr("x", 10)
+            .attr("y", 100)
+            .text("-i")
+            .attr("fill", "var(--complex-color)");
+
+        // 创建时间轴
+        const timelineData = [
+            {year: "公元前5世纪", event: "毕达哥拉斯学派发现无理数"},
+            {year: "16世纪", event: "卡尔达诺初步使用虚数"},
+            {year: "18世纪", event: "高斯建立复平面体系"}
+        ];
+
+        const timeline = d3.select(".timeline")
+            .append("div")
+            .style("display", "flex")
+            .style("justify-content", "space-between")
+            .style("margin-top", "20px");
+
+        const timelineItems = timeline.selectAll(".timeline-item")
+            .data(timelineData)
+            .enter()
+            .append("div")
+            .attr("class", "timeline-item")
+            .style("text-align", "center")
+            .style("flex", "1");
+
+        timelineItems.append("div")
+            .text(d => d.year)
+            .style("font-weight", "bold")
+            .style("margin-bottom", "10px");
+
+        timelineItems.append("div")
+            .text(d => d.event);
+
+        // 添加交互效果
+        document.querySelectorAll('.formula').forEach(formula => {
+            formula.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.transition = 'transform 0.3s';
+            });
+            
+            formula.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // 创建抛物线可视化
+        const parabola = d3.select(".equation-viz")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // 创建x²-2=0的抛物线
+        const xParabola = d3.scaleLinear()
+            .domain([-2, 2])
+            .range([0, width]);
+
+        const yParabola = d3.scaleLinear()
+            .domain([-1, 4])
+            .range([height, 0]);
+
+        // 绘制坐标轴
+        parabola.append("line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", yParabola(0))
+            .attr("y2", yParabola(0))
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
+
+        parabola.append("line")
+            .attr("x1", xParabola(0))
+            .attr("x2", xParabola(0))
+            .attr("y1", 0)
+            .attr("y2", height)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
+
+        // 生成抛物线数据点
+        const parabolaData = d3.range(-2, 2.1, 0.1)
+            .map(x => ({
+                x: x,
+                y: Math.pow(x, 2) - 2
+            }));
+
+        // 绘制抛物线
+        const line = d3.line()
+            .x(d => xParabola(d.x))
+            .y(d => yParabola(d.y));
+
+        parabola.append("path")
+            .datum(parabolaData)
+            .attr("fill", "none")
+            .attr("stroke", "var(--real-color)")
+            .attr("stroke-width", 2)
+            .attr("d", line);
+
+        // 标记√2和-√2位置
+        const roots = [-Math.sqrt(2), Math.sqrt(2)];
+        parabola.selectAll(".root")
+            .data(roots)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xParabola(d))
+            .attr("cy", yParabola(0))
+            .attr("r", 5)
+            .attr("fill", "red")
+            .attr("class", "highlight");
+
+        // 创建复平面上的抛物线
+        const complexParabola = d3.select("#complex-plane")
+            .append("g")
+            .attr("class", "complex-parabola");
+
+        // 生成x²+1=0的复数解
+        const complexRoots = [
+            {x: 0, y: 1},  // i
+            {x: 0, y: -1}  // -i
+        ];
+
+        // 绘制虚轴上的解
+        complexParabola.selectAll(".complex-root")
+            .data(complexRoots)
+            .enter()
+            .append("circle")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y * 100)
+            .attr("r", 5)
+            .attr("fill", "var(--complex-color)")
+            .attr("class", "highlight");
+
+        // 添加虚线连接
+        complexParabola.selectAll(".complex-line")
+            .data(complexRoots)
+            .enter()
+            .append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", d => d.x)
+            .attr("y2", d => d.y * 100)
+            .attr("stroke", "var(--complex-color)")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "5,5");
+
+        // 添加旋转控制
+        let rotation = 0;
+        const rotateComplex = () => {
+            rotation += 1;
+            complexPlane.attr("transform", `translate(${width/2 + margin.left},${height/2 + margin.top}) rotate(${rotation})`);
+            requestAnimationFrame(rotateComplex);
+        };
+
+        // 添加旋转控制按钮
+        const rotateButton = d3.select("#complex-plane")
+            .append("button")
+            .style("position", "absolute")
+            .style("top", "10px")
+            .style("right", "10px")
+            .text("旋转复平面")
+            .on("click", function() {
+                const isRotating = this.classList.toggle("rotating");
+                if (isRotating) {
+                    rotateComplex();
+                } else {
+                    cancelAnimationFrame(rotateComplex);
+                    rotation = 0;
+                    complexPlane.attr("transform", `translate(${width/2 + margin.left},${height/2 + margin.top}) rotate(0)`);
+                }
+            });
+    </script>
+</body>
+</html>
